@@ -1,0 +1,96 @@
+<! DOCTYPE html>
+<html>
+<head>
+<title>login page</title>
+
+    
+  </head>
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">   
+   <link rel="stylesheet" href="style.css">
+ <body onload="inPage()">
+<header style="width: 100%;height:60px;text-align:left">
+      <p style="font-size: 30px;padding: 10px;font-weight: bold;">CodeStuff</p>
+</header>
+   <center>
+<div class="loginformholder">
+        <div class="loginform">
+            <div class="myform">
+                <form>
+                   <font-face="sans-serif"> <h1>Log Into Your Account</h1></font-face>
+                    <br>
+                    <center><input type="text" placeholder="Email" id="email"></center>
+                    <br>
+                    <center><input type="password" placeholder="Password" id="password"></center>
+                    <br>
+                    <center><button class="btn btn-success btn-lg" id="login">Log in</button></center>
+                    <a href="/auth/github" class="btn btn-primary">GITHUB</a>
+                </form>
+            </div>
+        </div>
+    </div>
+     
+     
+   
+     
+     
+     
+     
+     
+     
+     
+     </center>
+
+<footer style="position:fixed">
+<h5 id="copyright" align="center" style="font-size:20px;font-weight:bold;color:#7f7f84;"></h5>
+    <br>
+</footer>
+    <script>
+        function    inPage()
+        {
+            var date=new    Date();
+            var currdate=date.getFullYear();
+            document.getElementById("copyright").innerHTML="CodeStuff &copy; "+currdate;
+        }
+        var username=document.getElementById("username");
+        var pass=document.getElementById("pass");
+        var email=document.getElementById("email");
+var pass=document.getElementById("password");
+var login=document.getElementById("login");
+
+login.onclick=function()
+{
+    if(valid())
+        {
+            let xhr=new XMLHttpRequest();
+            xhr.open("POST",'/check'); 
+           xhr.setRequestHeader("content-type","application/json");
+            xhr.send(JSON.stringify({"email":email.value,"password":pass.value}));
+            xhr.onreadystatechange=function()
+            {
+                 if (this.readyState == 4 && this.status == 200) {
+                     if(this.responseText=="successfully signed in")
+                    window.location.href=("/admin");
+                     else if(this.responseText=="not")
+                         alert("user is not allowed");
+                     else
+                         alert("User Not Registered");
+            }
+            };
+        }
+}
+function    valid()
+{
+    if(email.value==''){
+        alert("Email field cannot be empty");
+        return  false;
+    }
+    else    if(pass.value=='')
+        {
+            alert("Password field cannot be empty");
+            return  false;
+        }
+    return  true;
+}
+     </script>
+  </body>
+</html>
