@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html>
+<head>  
+
+ <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css"/>
+         
+        <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
+
+    <style>
+        
+        .inp3{
+        width: 500px;
+height:100px;
+        }
+        
+        
+        #send{
+            background-color: green;
+            text-align-last: right;
+            height:auto;
+        }
+        
+        #success
+{
+    width:100px;
+    height:30px;
+    float:center;
+    align-self:center;
+}
+           /* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+    justify-content:center;
+    align-items:center;
+    align-self:center;
+    align-content:center;
+    float:center;
+    padding:10px;
+  overflow: auto; /* Enable scroll if needed */
+background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    
+}
+
+/* Modal Content */
+.modal-content {
+    justify-content:center;
+    align-items:center;
+align-content:center;
+    float:center;
+    padding:20px; 
+    background-color: #fefefe;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+        
+ .msg1
+ {
+ background-color:black;
+ color:white;
+ border-color:black;
+}
+.msg2
+{
+ background-color:blue;
+ color:white;
+ border-color:blue;
+}
+.msg3
+{
+    background-color:red;
+  color:white;
+    border-color:red;
+}
+.msg4
+ {
+    background-color:green;
+  color:white;
+    border-color:green;           
+  }
+      
+        button{
+            
+            height:30px;
+            width="200%";
+        }
+    #head
+{
+    font-weight: bold;
+    background-color: darkblue;
+    color: white;
+    box-shadow: 0 0 10px;
+    width:100%;
+     justify-content: center;
+    align-items: center;
+}
+        
+          #btn
+           {
+               background-color: darkblue;
+               color:white;
+               border-color: darkblue;
+           }
+         
+
+}
+        #div{
+             width:800px;
+            height:100px;
+        }
+        
+      /*  #inp3{
+            
+            width:500px;
+            
+            
+            
+        }*/
+        
+        
+        /* input{
+        width:300px;
+        float:center;
+        align-self: center;
+    }*/
+#body
+{
+    height:500px;
+
+}
+#success
+{
+    width:100px;
+    height:30px;
+    float:center;
+    align-self:center;
+}
+           /* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+    justify-content:center;
+    align-items:center;
+    align-self:center;
+    align-content:center;
+    float:center;
+    padding:150px;
+  overflow: auto; /* Enable scroll if needed */
+background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.modal-content {
+    justify-content:center;
+    align-items:center;
+align-content:center;
+    float:center;
+    padding:20px; 
+    background-color: #fefefe;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+        </style>
+
+    <title>CodeStuff</title>
+    </head>
+       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">   
+    <body onload="sendreq()">
+        
+        {{>header}}
+
+    <div  id="b">
+        
+        <table height="10%" width="100%">
+        
+        <tr>
+            
+            <td width="100%"><button>User List </button></td>
+            
+            <td width="40%">  </td>
+            <td width="50%"> </td>
+            
+            <td> <button id="refresh"> Refresh</button></td>
+              
+            <td>
+            <select id="statustab">
+                <option>All</option>
+                     <option>Pending</option>
+                     <option>confirmed</option>
+                </select>
+            
+            </td>     
+                  <td>
+            <select id="roletab">
+                <option>All</option>
+                     <option>admin</option>
+                     <option>user</option>
+                   <option>community builder</option>
+                </select>
+            
+            </td> 
+            </tr>
+        
+        
+        </table>
+           </div>
+        
+        
+        <div class="container" style="margin-top:35px">
+        <h4>Select Number Of Rows</h4>
+            <select name="state" id="maxRows" class="form-control" style="width:150px">
+            <option value="100">Show All</option>
+             <option value="5">5</option>   
+            <option value="10">10</option>
+            <option value="20">20</option>
+            <option value="30">30</option>
+            <option value="40">40</option>
+             <option value="50">50</option>
+            </select>
+    
+        </div>
+        
+       
+        
+       <div>
+        
+        <table id="datatable" width="100%" border="2" cellpadding = "5" cellspacing = "5">
+          <thead>
+            <tr height="20%">
+          
+                <td><strong>Email</strong></td>
+                <td><strong>Phone</strong></td>
+                <td><strong>City</strong></td>
+                <td><strong>Status</strong></td>
+                <td><strong>Role</strong></td>
+                <td><strong>Actions</strong></td>
+              
+            </tr>
+            </thead>
+            <tbody id="data1">
+      
+
+           
+            
+            </tbody>
+           </table>
+        
+        
+        
+        
+        </div> 
+        
+        <div class="pagination-container">
+            <nav>
+                <ul class="pagination"></ul>
+            </nav>
+        
+        </div>
+   
+    
+        
+      <div id="myModal" class="modal" style="width:100%;float:center">
+
+  <!-- Modal content -->
+    <span class="close">&times;</span>
+  <div class="modal-content" id="modal-content" style="width:950px;float:center">
+  </div>
+
+</div>
+        
+   
+        
+        <div id="buttons"></div>
+        
+        
+  
+        
+    </body>
+    
+     <script>
+         
+                   
+             
+      
+                     var    btn=document.createElement("button");
+                     btn.setAttribute("id","btn");
+                        btn.innerHTML="CodeStuff";
+                     document.getElementById("user").appendChild(btn);
+                     
+         
+
+ 
+        var counter=0;
+         
+          var    stat=document.getElementById("statustab");
+                     var    rol=document.getElementById("roletab");
+                     
+                      var prevstat=stat;
+        var prevrol=rol;
+         
+         
+         setInterval(function()
+           {
+    if(prevstat!=document.getElementById("statustab").value || prevrol!=document.getElementById("roletab").value)
+        {
+            prevstat=document.getElementById("statustab").value;
+            prevrol=document.getElementById("roletab").value;
+          sendreq();  
+        
+        }
+    if(counter!=0)
+        {
+                    setInterval(function(){
+                for(var i=0;i<curusser.length;i++){
+                   
+                    if(document.getElementById("edit"+i)){
+                
+            document.getElementById("edit"+i).onclick=function(event){
+               //  console.log(event.target.parentElement.parentElement.firstChild.innerHTML);
+                             document.getElementById("modal-content").innerHTML="UPDATE";
+                                  modal.style.display="block";
+                             var    inp1=document.createElement("input");
+                inp1.setAttribute("id","inp1");
+                            inp1.setAttribute("placeholder","Email");
+                             document.getElementById("modal-content").appendChild(inp1);
+                document.getElementById("modal-content").innerHTML+="<br>";
+                 var    inp2=document.createElement("input");
+                inp2.setAttribute("id","inp2");
+                            inp2.setAttribute("placeholder","Phone");
+                             document.getElementById("modal-content").appendChild(inp2);
+                                document.getElementById("modal-content").innerHTML+="<br>";
+                 var    inp3=document.createElement("input");
+                inp3.setAttribute("id","inp3");
+                            inp3.setAttribute("placeholder","City");
+                             document.getElementById("modal-content").appendChild(inp3);
+                                document.getElementById("modal-content").innerHTML+="<br>";
+                var    inp4=document.createElement("input");
+                inp4.setAttribute("id","inp4");           
+                inp4.setAttribute("placeholder","status");
+                             document.getElementById("modal-content").appendChild(inp4);
+                                document.getElementById("modal-content").innerHTML+="<br>";
+                 var    inp5=document.createElement("input");
+                inp5.setAttribute("id","inp5");           
+                inp5.setAttribute("placeholder","role");
+                             document.getElementById("modal-content").appendChild(inp5);
+                                document.getElementById("modal-content").innerHTML+="<br>";
+                var btn1=document.createElement("button");
+                btn1.setAttribute("id","success");
+                btn1.innerHTML="UPDATE";
+                document.getElementById("modal-content").appendChild(btn1);
+                btn1.onclick=function(){
+                   xhttp.open("PUT",'/update',true);
+                     xhttp.setRequestHeader("content-type","application/json;charset=UTF-8");
+                    var obj=new Object();
+                    obj.Email=event.target.parentElement.parentElement.firstChild.innerHTML;
+                
+                    obj.Phone=document.getElementById("inp2").value;
+                    obj.City=document.getElementById("inp3").value;
+                    obj.status=document.getElementById("inp4").value;
+                    obj.role=document.getElementById("inp5").value;
+                   // obj.Email=document.getElementById("inp1").value;
+                    obj.newEmail=document.getElementById("inp1").value;
+                   console.log(obj);
+                   // xhttp.send();
+  xhttp.send(JSON.stringify(obj));
+                     xhttp.onreadystatechange=function()
+            {
+                 if (this.readyState == 4 && this.status == 200) {
+                    if(this.responseText=="UPDATED"){
+                       console.log("UPDATED");
+                        window.location.htref=('/userlists');
+                        sendreq();
+                    }
+                     else
+                         alert("Email already registered");
+            }
+            };
+                      // location.replace("userlists.html");
+                }
+                
+            }
+            }
+            } 
+                
+            },1000);
+        }
+         },1000);
+         
+         setInterval(function(){
+                for(var i=0;i<curusser.length;i++)
+                    {
+                        if(document.getElementById("del"+i)){
+                           document.getElementById("del"+i).onclick=function(event){
+                            //    console.log("c");
+                               var userdata=$(this).parent().parent()[0].children;
+                               var email=userdata[0].innerHTML;
+                               console.log(email);
+                              //  var email=event.target.parentElement.parentElement.firstChild.innerHTML;
+                               modal.style.display="block";
+                               console.log(event.target.innerHTML);
+                               var text=event.target.innerHTML; 
+                               console.log(event.target);
+                               console.log(email);
+                               document.getElementById("modal-content").innerHTML="";
+                                var h2=document.createElement("h2");
+                               if(text=='&nbsp;<i class="fas fa-check-circle"></i>')
+                                   h2.innerHTML='Do you want to activate user?';
+                               else
+                                h2.innerHTML='Do you want to deactivate user?';
+                                var btnsuccess=document.createElement("button");
+                                btnsuccess.setAttribute("id","btnsuccess");
+                               btnsuccess.setAttribute("class","msg4");
+                                btnsuccess.innerHTML='Yes';
+                                var btnfail=document.createElement("button");
+                                btnfail.setAttribute("id","btnfail");
+                                btnfail.setAttribute("class","msg3");
+                                btnfail.innerHTML='No';
+                               console.log( document.getElementById("modal-content").innerHTML);                                document.getElementById("modal-content").appendChild(h2);
+                                document.getElementById("modal-content").appendChild(btnsuccess);
+                               document.getElementById("modal-content").innerHTML+="<br>";
+                                document.getElementById("modal-content").appendChild(btnfail);
+                                document.getElementById("btnsuccess").onclick=function(){
+                                    var obj=new Object();
+                                    obj.Email=userdata[0].innerHTML;
+                                    if(text=='&nbsp;<i class="fas fa-check-circle"></i>')
+                                        {
+                                            console.log("open d");
+                                     xhttp.open("PUT",'/deactivate');
+                                        }
+                                    else
+                                        xhttp.open("PUT",'/activate');
+                     xhttp.setRequestHeader("content-type","application/json");
+                                    xhttp.send(JSON.stringify(obj));
+                                     xhttp.onreadystatechange=function()
+            {
+                 if (this.readyState == 4 && this.status == 200) {
+                    if(this.responseText=="UPDATED"){
+                     window.location.href=('/userlists');
+                        sendreq();
+                       
+                    }
+                     else
+                         alert("Error");
+            }
+            };
+                                }
+                                
+                                document.getElementById("btnfail").onclick=function(){
+                                    window.location.href=('/userlists');
+                                }
+                                
+//                            }
+//                        }
+//                    }
+                           }
+            }}},1000);
+         
+         
+         
+         setInterval(function(){
+             
+             
+             for(var i=0;i<curusser.length;i++)
+                    {
+                        if(document.getElementById("btnmsg"+i)){
+                           document.getElementById("btnmsg"+i).onclick=function(event){
+                            // console.log(  event.target.parentElement.parentElement.firstChild.innerHTML);
+                               
+                               var userdata=$(this).parent().parent()[0].children;
+                               
+                               document.getElementById("modal-content").innerHTML="";
+                               
+                              // console.log(userdata[0].innerHTML);
+                                  var head=document.createElement("h1");
+                               
+                               head.innerHTML="SEND REMINDER MAIL";
+                                  modal.style.display="block";
+                           
+                               
+                                document.getElementById("modal-content").appendChild(head);
+                               var inp1=document.createElement("input");
+                               var label=document.createElement("strong");
+                               var label2=document.createElement("strong");
+                               var label3=document.createElement("strong");
+                               
+                               label.innerHTML="TO:"
+                            
+                               inp1.setAttribute("id","inp1");
+                               inp1.setAttribute("value",userdata[0].innerHTML);
+                               inp1.setAttribute("readonly","readonly");
+                            
+                                document.getElementById("modal-content").appendChild(label);
+                               
+                               
+                                  document.getElementById("modal-content").appendChild(inp1);
+                               
+                            
+                               
+                                label2.innerHTML="SUBJECT:"
+                               var inp2=document.createElement("input");
+                              // inp2.setAttribute("type","text");
+                                inp2.setAttribute("id","inp2");
+                               
+                                document.getElementById("modal-content").appendChild(label2);
+                                  document.getElementById("modal-content").appendChild(inp2);
+                             
+                               
+                               
+                                label3.innerHTML="BODY:";
+                               
+                               var div=document.createElement("div");
+                               div.setAttribute("id","div");
+                              // div.setAttribute("width","1000px");
+                       
+                               var inp3=document.createElement("input");
+                            //   inp3.setAttribute("type","text");
+                               inp3.setAttribute("id","inp3");
+                                inp3.setAttribute("class","inp3");
+                               //inp3.setAttribute("width","1000px");
+                               
+                            document.getElementById("modal-content").appendChild(label3);
+                               div.appendChild(inp3);
+                                  document.getElementById("modal-content").appendChild(div);
+                               
+                               var btn=document.createElement("button");
+                               btn.setAttribute("id","send");
+                               btn.innerHTML="SEND";
+                               
+                               
+                               
+                               
+                               var toolbarOptions = [
+  ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+  ['blockquote', 'code-block'],
+
+  [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+  [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+  [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+  [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+  [{ 'direction': 'rtl' }],                         // text direction
+
+  [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+  [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+
+  [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+  [{ 'font': [] }],
+  [{ 'align': [] }],
+
+  ['clean']                                         // remove formatting button
+];
+                               
+                               var quill = new Quill('#div', {
+    theme: 'snow',placeholder:'write',
+                                   modules: {
+    toolbar: toolbarOptions
+     
+    
+  }
+  });
+                              
+                            
+                               
+                               
+                               
+                            //   document.getElementById("modal-content").appendChild(form);
+                               document.getElementById("modal-content").appendChild(btn);
+                    
+                               
+                               
+                  btn.onclick=function(){
+                      
+                      //userdata=$(this).parent();
+                                // var xhttp;
+                               
+                                           xhttp.open("POST",'/mail',true);
+                     xhttp.setRequestHeader("content-type","application/json;charset=UTF-8");  
+                                var obj=new Object();
+                    
+                   obj.sendTo=document.getElementById("inp1").value;
+                    obj.subject=document.getElementById("inp2").value;
+                    
+                   obj.matter=document.getElementById("div").children[0].innerHTML;
+                      console.log("click");
+                  xhttp.send(JSON.stringify(obj));
+                     xhttp.onreadystatechange=function()
+            {
+                 if (this.readyState == 4 && this.status == 200) {
+                    if(this.responseText==("Mailed")){
+                       console.log("Mailed");
+                     alert("successful");
+                       window.location.href=('/userlists');
+                       // sendreq();
+                    }
+                     else
+                         alert("error");
+            }
+            }
+                         ;
+                  }
+                      // location.replace("userlists.html");
+                }
+                
+            }
+            }
+             
+            
+             
+            } 
+                     
+                     
+                               
+                               
+                               
+        ,1000);
+         
+ 
+         
+          var counter=0;
+ var    bttn=document.createElement("button");
+        bttn.setAttribute("id","addRow");
+ var xhttp=new XMLHttpRequest();
+         var curusser=[];
+        var c=0;
+         var  pagescount=0;
+        var prev="0";
+ var modal = document.getElementById("myModal");
+   var span = document.getElementsByClassName("close")[0];
+      var   table;
+        setInterval(function(){
+            if(prev!=document.getElementById("maxRows").value   ||  prevstat!=document.getElementById("statustab").value || prevrol!=document.getElementById("roletab").value)
+                {
+                      prevstat=document.getElementById("statustab").value;
+            prevrol=document.getElementById("roletab").value;
+                    var obj=new Object();
+                            var users=[];
+                    obj.size=document.getElementById("maxRows").value;
+                    if(stat.value!='All'   &&  rol.value!='All')
+            { 
+                obj.status=stat.value;
+                obj.role=rol.value;
+                 xhttp.open("POST",'/pagecount2');
+            }
+        else if(rol.value!='All'){
+             obj.role=rol.value;
+             xhttp.open("POST",'/pagecount3');
+         }
+        else if(stat.value!='All'  )
+            { 
+                obj.status=stat.value;
+                 xhttp.open("POST",'/pagecount1');
+            }
+         else
+            xhttp.open("POST",'/pagecount');  
+                                    xhttp.setRequestHeader("content-type","application/json");
+                    xhttp.send(JSON.stringify(obj));
+                    xhttp.onreadystatechange=function(){
+                      if(this.readyState==4 &&  this.status==200)
+                          {
+                              users=JSON.parse(this.responseText);         
+                              console.log(users);
+                              console.log(Math.ceil(users.length));
+                             document.getElementById("buttons").innerHTML="";
+                                                  pagescount=Math.ceil((users.length/document.getElementById("maxRows").value));
+                              
+                              for(var   i=1;i<=pagescount;i++)
+                                  {
+                                      var   btn=document.createElement("button");
+                                      btn.setAttribute("id","btn"+i);
+                                      btn.innerHTML=i;
+                                      document.getElementById("buttons").appendChild(btn);
+                                      document.getElementById("buttons").innerHTML+="&nbsp;";
+                                  }
+                               sendreq();
+
+                          }
+                    };
+                   prev=document.getElementById("maxRows").value;
+                   
+                }
+    },1000);
+        function    sendreq(){
+              var    stat1=document.getElementById("statustab");
+                     var    rol1=document.getElementById("roletab");
+            var obj=new Object();
+            obj.size=document.getElementById("maxRows").value;
+            obj.pageNo="1";
+            if(stat.value!='All'   &&  rol.value!='All')
+            { 
+                obj.status=stat.value;
+                obj.role=rol.value;
+                 xhttp.open("POST",'/users2');
+            }
+        else if(rol.value!='All'){
+             obj.role=rol.value;
+             xhttp.open("POST",'/users3');
+         }
+        else if(stat.value!='All'  )
+            { 
+                obj.status=stat.value;
+                 xhttp.open("POST",'/users1');
+            }
+         else
+            xhttp.open("POST",'/users');
+                xhttp.setRequestHeader("content-type","application/json");
+xhttp.send(JSON.stringify(obj));
+xhttp.onreadystatechange=function()
+    {
+     if(c==0){
+                        table=$('#datatable').DataTable({
+                          "bPaginate": false,
+                            "bInfo": false
+                      });
+                 c=1;
+             }
+                table.clear().draw();
+         if (this.readyState == 4 && this.status == 200) {
+             curusser=JSON.parse(this.responseText);
+             console.log(curusser);
+                     var    stat=document.getElementById("statustab");
+                     var    rol=document.getElementById("roletab");
+                     for(var    i=0;i<curusser.length;i++)
+                         {
+                                if(stat.value=='All' || stat.value==curusser[i].status)
+                                {
+                                    console.log("a");
+                                    if(rol.value=='All' || rol.value==curusser[i].role){
+                             var    actions=document.createElement("td");
+                             var    btnmsg=document.createElement("button");
+                             btnmsg.setAttribute("id","btnmsg"+i);
+                             btnmsg.setAttribute("class","msg1");
+                             btnmsg.innerHTML='<i class="fas fa-envelope-square"></i>&nbsp;';
+                             actions.appendChild(btnmsg);
+                             var    right='Superadmin';
+                             if(curusser[i].role!=right)
+                             {
+                                 counter++;
+                                 var    btn1=document.createElement("button");
+                                 btn1.setAttribute("id","edit"+i);
+                                 btn1.setAttribute("class","msg2");
+                                 btn1.innerHTML='<i class="far fa-edit"></i>&nbsp;';
+                                 actions.appendChild(btn1);
+                                 var    btn2=document.createElement("button");
+                                 btn2.setAttribute("id","del"+i);
+                                
+                                 if(curusser[i].Flag){
+                                     btn2.setAttribute("class","msg4");
+                                     btn2.innerHTML='&nbsp;<i class="fas fa-check-circle"></i>';
+                                 }
+                                 else{
+                                      btn2.setAttribute("class","msg3");
+                                 btn2.innerHTML='&nbsp;<i class="fas fa-times"></i>&nbsp;';
+                                 }
+                                 actions.appendChild(btn2);
+                             }
+                                      console.log("b");
+                                        table.row.add( [curusser[i].Email,curusser[i].Phone,curusser[i].City,curusser[i].status,curusser[i].role,actions.innerHTML] ).draw();
+                                   
+                                    }
+                                 
+                             }
+                            
+                         } 
+                                          span.onclick = function() {
+                                            modal.style.display = "none";
+                                        }
+                                        window.onclick = function(event) {
+                                            if (event.target == modal) {
+                                                modal.style.display = "none";
+                                            }
+                                        }
+                                         }
+    };
+        setInterval(function(){ for(var i=1;i<=pagescount;i++){
+     document.getElementById("btn"+i).onclick=function(event){
+             var    stat=document.getElementById("statustab");
+                     var    rol=document.getElementById("roletab");
+    var obj=new Object();
+    obj.size=document.getElementById("maxRows").value;
+         console.log(event.target.innerHTML);
+    obj.pageNo=event.target.innerHTML;
+         console.log(obj);
+         if(stat.value!='All'   &&  rol.value!='All')
+            { 
+                obj.status=stat.value;
+                obj.role=rol.value;
+                 xhttp.open("POST",'/users2');
+            }
+        else if(rol.value!='All'){
+             obj.role=rol.value;
+             xhttp.open("POST",'/users3');
+         }
+        else if(stat.value!='All'  )
+            { 
+                obj.status=stat.value;
+                 xhttp.open("POST",'/users1');
+            }
+         else
+            xhttp.open("POST",'/users');  
+    xhttp.setRequestHeader("content-type","application/json");
+xhttp.send(JSON.stringify(obj));
+         xhttp.onreadystatechange=function()
+            {
+             if(c==0){
+                        table=$('#datatable').DataTable({
+                          "bPaginate": false,
+                            "bInfo": false,
+                            "searching":false
+                      });
+                 c=1;
+             }
+                                     table.clear().draw();   
+                 if (this.readyState == 4 && this.status == 200) {
+                     curusser=JSON.parse(this.responseText);
+                     
+                     for(var    i=0;i<curusser.length;i++)
+                         {
+                                if(stat.value=='All' || stat.value==curusser[i].status)
+                                {
+                                    if(rol.value=='All' || rol.value==curusser[i].role){
+                             var    actions=document.createElement("td");
+                             var    btnmsg=document.createElement("button");
+                             btnmsg.setAttribute("id","btnmsg"+i);
+                             btnmsg.setAttribute("class","msg1");
+                             btnmsg.innerHTML='<i class="fas fa-envelope-square"></i>&nbsp;';
+                             actions.appendChild(btnmsg);
+                             var    right='Superadmin';
+                             if(curusser[i].role!=right)
+                             {
+                                 counter++;
+                                 var    btn1=document.createElement("button");
+                                 btn1.setAttribute("id","edit"+i);
+                                 btn1.setAttribute("class","msg2");
+                                 btn1.innerHTML='<i class="far fa-edit"></i>&nbsp;';
+                                 actions.appendChild(btn1);
+                                 var    btn2=document.createElement("button");
+                                 btn2.setAttribute("id","del"+i);
+                                
+                                 if(curusser[i].Flag){
+                                     btn2.setAttribute("class","msg4");
+                                     btn2.innerHTML='&nbsp;<i class="fas fa-check-circle"></i>';
+                                 }
+                                 else{
+                                      btn2.setAttribute("class","msg3");
+                                 btn2.innerHTML='&nbsp;<i class="fas fa-times"></i>&nbsp;';
+                                 }
+                                 actions.appendChild(btn2);
+                             }
+                                      
+                                        table.row.add( [curusser[i].Email,curusser[i].Phone,curusser[i].City,curusser[i].status,curusser[i].role,actions.innerHTML] ).draw();
+                                   
+                                    }
+                                 
+                             }
+                            
+                         } 
+                                          span.onclick = function() {
+                                            modal.style.display = "none";
+                                        }
+                                        window.onclick = function(event) {
+                                            if (event.target == modal) {
+                                                modal.style.display = "none";
+                                            }
+                                        }
+                                         }
+            };
+        }
+        }},1000);
+        }
+        
+             
+  
+   
+  
+        var b=document.getElementById("refresh");
+             b.onclick=function(){
+                  window.location.href=('/userlists');
+                 console.log("you press refresh");
+                
+             } 
+             
+   
+      
+       
+      
+      
+</script>
+    
+</html>

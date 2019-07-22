@@ -1,0 +1,222 @@
+<html>
+    <head>
+       <style>
+#head
+{
+    font-weight: bold;
+    background-color: darkblue;
+    color: white;
+    box-shadow: 0 0 10px;
+    width:100%;
+     justify-content: center;
+    align-items: center;
+}
+           .main
+           {
+               width:50%;
+               border-color: black;
+               height:20px;
+                height: 85vh;
+               box-shadow: 0 0 15px;
+               justify-content: center;
+               align-content: center;
+                   align-items: center;
+    display: flex;
+margin-top: 15px;
+}
+        .textbox
+           {
+              margin :10px;  
+               width:40%;
+               height:120%;
+           }
+           .head
+           {
+               background-color: lightgray;
+               width:100%;
+               text-align: center;
+               height:30px;
+               font-size: 25px;
+               width:500px;
+           }
+           .content
+           {
+               background-color: white;
+               width:100%;
+               text-align: center;
+               height:30px;
+               font-size: 25px;
+               width:500px;
+           }
+           input
+           {
+               width:300px;
+           }
+           .button
+           {
+               background-color: darkblue;
+               color:white;
+               border-color: darkblue;
+               width:100px;
+           }
+           #btn
+           {
+               background-color: darkblue;
+               color:white;
+               border-color: darkblue;
+               width:150px;
+           }
+           
+                      select {
+width: 110%;
+margin: 10px;
+}
+           
+
+        </style>
+        <title>CodeStuff</title>
+    </head>
+       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">   
+    <body onload="sendreq()">
+          
+    {{>header}}
+        <center>
+        <div class="main">
+                <div class="textbox">
+                    <h2 style="color:aliceblue">ADD USER</h2>
+                 <br>
+                    <center><input type="text" placeholder="Email" id="email"></center>
+                    <br>
+                    <center><input type="password" placeholder="Password" id="password"></center>
+                    <br>
+                    <center><input type="text" placeholder="Name" id="name1"></center>
+                    <br>
+                    <center><select id="gender"><option>Male</option><option>Female</option></select></center>
+                    <br>
+                    <center><input type="text" placeholder="City" id="city"></center>
+                    <br>
+                    <center><input type="text" placeholder="Phone No." id="phone"></center>
+                    <br>
+                    <center><input type="text" placeholder="DOB" id="dob"></center>
+                    <br>
+                                       <p align="left"> Role:</p>
+                       <select name="role" id="role" >
+                       <option value="user">user </option>
+                        <option value="community builder">community builder</option>
+                        <option value="admin">admin</option>
+                    </select>
+                
+                                
+         
+                    <br>
+                    <br>
+                            
+                    <button class="button" id="submit">SUBMIT</button>
+                    <button class="button" id="clear">CANCEL</button>
+
+               </div>
+            </div>
+        </center>
+    </body>
+    <script>
+        var a=0;
+ 
+    
+        var email=document.getElementById("email");
+        var pass=document.getElementById("password");
+        var name=document.getElementById("name1");
+        var gender=document.getElementById("gender");
+        var city=document.getElementById("city");
+        var phone=document.getElementById("phone");
+        var dob=document.getElementById("dob");
+        var role=document.getElementById("role");
+        var status=document.getElementById("status");
+
+        document.getElementById("clear").onclick=function(){
+            window.location.href=("/adduser");
+        }
+        document.getElementById("submit").onclick=function(){
+        if(email.value=='')
+            alert("Email can't be left empty");
+        else    if(pass.value=='')
+            alert("Password can't be left empty");
+        else    if(name1.value=='')
+            alert("Name can't be left empty");
+        else    if(gender.value=='')
+            alert("Gender can't be left empty");
+        else    if(city.value=='')
+            alert("City can't be left empty");
+        else    if(phone.value=='')
+            alert("Phone can't be left empty");
+        else    if(dob.value=='')
+            alert("DOB can't be left empty");
+         else    if(role.value=='')
+            alert("Role can't be left empty");    
+       // else    if(status.value=='')
+         //   alert("Status can't be left empty");
+        else
+            {
+                var newobj=new  Object();
+                newobj.email=email.value;
+                newobj.pass=pass.value;
+                newobj.city=city.value;
+                newobj.dob=dob.value;
+                newobj.phone=phone.value;
+                newobj.name=name1.value;
+                newobj.gender=gender.value;
+                newobj.role=role.value;
+                newobj.status="Pending";
+                console.log(newobj);
+                var xhr=new XMLHttpRequest();
+                xhr.open("POST",'/add');
+                xhr.setRequestHeader("content-type","application/json");
+                xhr.send(JSON.stringify(newobj));
+                 xhr.onreadystatechange=function()
+            {
+                 if (this.readyState == 4 && this.status == 200) {
+                    if(this.responseText=="ADDED")
+                        {
+                        alert("USER ADDED SUCCESSFULLY");
+                  
+            
+            
+                  var xhttp=new XMLHttpRequest();
+                
+                                                xhttp.open("POST",'/mail',true);
+                     xhttp.setRequestHeader("content-type","application/json;charset=UTF-8");  
+                                var obj=new Object();
+                   obj.sendTo=email.value;
+                    obj.subject="From codestuf";
+                    obj.matter=("login codestuff with password:"+pass.value);
+                    //  console.log("click");
+                  xhttp.send(JSON.stringify(obj));
+                     xhttp.onreadystatechange=function()
+            {
+                 if (this.readyState == 4 && this.status == 200) {
+                    if(this.responseText==("Mailed")){
+                       console.log("Mailed");
+                     alert("successfuly mailed");
+                       // location.replace('userlists.html');
+                       // sendreq();
+                    }
+                     else
+                         alert("error in mail");
+                 }
+                        
+                         
+            }
+            }
+                        
+                     else 
+                         alert("email already registered");
+                 }
+                     
+                  
+                  
+               
+                
+            }
+        }
+        };
+    </script>
+</html>

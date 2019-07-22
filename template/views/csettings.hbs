@@ -1,0 +1,386 @@
+<! DOCTYPE html>
+<html>
+
+<head>
+     <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css"/>
+         
+        <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+     <style>
+         
+       
+         button{
+             border:none;
+             background-color:white;
+         }
+      
+         
+         #edit{
+             float:right;
+         }
+         
+   
+         #h{
+             background-color:aqua;
+             height:70px;
+                 width:100%;
+         }
+         
+         
+         
+         img{
+             
+             width:400px;
+             height:200px;
+             padding-left: 100px;
+             padding-top: 30px
+             
+             
+             
+         }
+         
+         
+        #name{
+             
+padding-left: 450px;
+             
+         }
+         
+        
+         
+        
+
+#head
+{
+    font-weight: bold;
+    background-color: darkblue;
+    color: white;
+    box-shadow: 0 0 10px;
+    width:100%;
+     justify-content: center;
+    align-items: center;
+}
+           .main
+           {
+               width:80%;
+               border-color: black;
+               height:20px;
+                height: 85vh;
+               box-shadow: 0 0 15px;
+               justify-content: center;
+               align-content: center;
+                   align-items: center;
+    display: flex;
+margin-top: 15px;
+}
+         #back{
+         justify-content: flex-end;
+  display: flex;
+         }
+        .textbox
+           {
+              margin :10px;  
+           }
+           .head
+           {
+               background-color: lightgray;
+               width:100%;
+               text-align: center;
+               height:30px;
+               font-size: 25px;
+               width:500px;
+           }
+           .content
+           {
+               background-color: white;
+               width:100%;
+               text-align: center;
+               height:30px;
+               font-size: 25px;
+               width:500px;
+           }
+         
+         
+         #leftbox { 
+                float:left; 
+             background-color:#FDEDEC  ;
+             margin-left: 40px;
+             margin-top: 100px;
+            border:solid white; 
+                width:180px; 
+                height:100px; 
+            } 
+         
+            
+         #rightbox{ 
+                float:right;
+        margin-right: 60px;
+             
+             margin-top:100px;
+             align-content:center;
+             background-color:white ;
+               border:solid white;
+                width:50%; 
+                height:200px; 
+            } 
+           #boxes
+           {
+               width:1000px;
+           }
+           #image
+           {
+               width:30px;
+               height:30px;
+           }
+           img
+           {
+               border-color: black;
+           }
+        
+           
+
+        </style>
+        <title>CodeStuff</title>
+    </head>
+       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">   
+    
+
+    <body>
+       
+ {{>userheader}}
+    
+    <div id="h">
+        
+        
+        <img id="img">
+
+        </div>
+        
+ 
+        <div>
+    
+     
+ 
+            
+        </div>
+        
+        <div id="leftbox">
+        
+        <button id="members"  onclick="members()">MEMBERS</button><br><br>
+        <button id="requests" onclick="requests()">requests</button>    
+      
+        </div>
+        
+        <div id="rightbox">
+        
+        </div>
+          
+    
+    </body>
+
+<script>
+   
+    
+                   
+             
+      
+                     var    btn=document.createElement("button");
+                     btn.setAttribute("id","btn");
+                        btn.innerHTML="CodeStuff";
+                     document.getElementById("user").appendChild(btn);
+    
+  var name=localStorage.getItem("data");
+   // console.log(name);
+    
+  
+    
+   
+  
+    
+    
+                  
+                
+          
+ var name1=document.createElement("h1");
+    name1.setAttribute("id","name");
+    name1.innerHTML=name;
+    
+    document.getElementById("h").appendChild(name1);
+    
+         
+    var hr1= document.createElement("hr"); 
+    
+    
+     document.getElementById("h").appendChild(hr1);
+    
+    
+    
+
+    var h2=document.createElement("h2");
+    h2.setAttribute("id","h2");
+    h2.innerHTML="Manage Community";
+    
+    var edit=document.createElement("button");
+      edit.setAttribute("id","edit");
+    edit.innerHTML="Edit Community";
+    
+   
+     document.getElementById("h").appendChild(h2); 
+      
+          
+     document.getElementById("h2").appendChild(edit);
+    
+    
+     var hr2= document.createElement("hr"); 
+    
+    
+     document.getElementById("h").appendChild(hr2);
+    
+    
+    
+    
+    function members(){
+        
+      document.getElementById("rightbox").innerHTML="";
+        
+            var xhttp=new XMLHttpRequest();
+         var mem=[];
+    
+    var obj=new Object();
+    obj.name=name;
+            
+        xhttp.open("POST",'/mymembers');
+             xhttp.setRequestHeader("content-type","application/json;charset=UTF-8");
+        xhttp.send(JSON.stringify(obj));
+         xhttp.onreadystatechange=function()
+            {
+         
+                 if (this.readyState == 4 && this.status == 200) {
+                     mem=JSON.parse(this.responseText);
+                    
+                      if(mem.length==0)
+                         document.getElementById("rightbox").innerHTML="NO MEMBERS"; 
+                     
+                      $.each(mem, function(index, value){
+            $("#rightbox").append(index+1 + ": " + value + '<br>'+'<hr>'+'<hr>');
+        });
+
+             
+         }
+                    
+                     
+                     
+                     
+                     
+                     
+                 }
+         }
+        
+        
+        
+        
+        
+    
+    
+    
+    
+    
+    
+    
+   function requests(){
+       
+        document.getElementById("rightbox").innerHTML="";
+        
+            var xhttp=new XMLHttpRequest();
+         var mem=[];
+    
+    var obj=new Object();
+    obj.name=name;
+            
+        xhttp.open("POST",'/myreq');
+             xhttp.setRequestHeader("content-type","application/json;charset=UTF-8");
+        xhttp.send(JSON.stringify(obj));
+         xhttp.onreadystatechange=function()
+            {
+         
+                 if (this.readyState == 4 && this.status == 200) {
+                     mem=JSON.parse(this.responseText);
+                     
+                     console.log(mem);
+                    
+                     if(mem.length==0)
+                         document.getElementById("rightbox").innerHTML="NO REQUESTS"; 
+                     
+                      $.each(mem, function(index, value){
+            $("#rightbox").append(index+1 + ": " + value + '<br>'+'<hr>'+'<hr>');
+        });
+
+             
+         }
+                    
+                     
+                     
+                     
+                     
+                     
+                 }
+       
+   } 
+    
+    
+document.getElementById("edit").onclick=function(event){
+    
+    window.location.href="/updatecommunity";
+    
+    
+} 
+
+
+
+         
+                  
+   var mxhttp=new XMLHttpRequest();
+         var curusser;
+    
+    var obj=new Object();
+    obj.name=name;
+        
+        
+                   
+             mxhttp.open("POST",'/cphotos');
+     mxhttp.setRequestHeader("content-type","application/json;charset=UTF-8");
+        mxhttp.send(JSON.stringify(obj));
+         mxhttp.onreadystatechange=function()
+            {console.log("open");
+           
+                 if (this.readyState == 4 && this.status == 200) {
+                      // console.log("req for photo");
+                     curusser=((this).responseText);
+                     curusser=curusser.slice(7,curusser.length);
+                    console.log(curusser);
+                     if(curusser)
+        { var img=document.getElementById("img").setAttribute("src","../"+curusser);
+          var img=document.getElementById("img1").setAttribute("src","../"+curusser);
+        }
+                     
+                          
+             else{
+                var img=document.getElementById("img").setAttribute("src","../community.jpg");
+                      var img=document.getElementById("img1").setAttribute("src","../community.jpg");
+             }
+                 }
+        
+         }
+    
+
+          
+    </script>
+</html>
+    

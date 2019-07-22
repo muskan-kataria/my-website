@@ -1,0 +1,492 @@
+<html>
+    <head>
+        
+        <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css"/>
+         
+        <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+       <style>
+           
+           
+           
+           
+           
+                  #success
+{
+    width:100px;
+    height:30px;
+    float:center;
+    align-self:center;
+}
+                  /* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+    justify-content:center;
+    align-items:center;
+    align-self:center;
+    align-content:center;
+    float:center;
+    padding:10px;
+  overflow: auto; /* Enable scroll if needed */
+background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    
+}
+
+/* Modal Content */
+.modal-content {
+    justify-content:center;
+    align-items:center;
+align-content:center;
+    float:center;
+    padding:20px; 
+    background-color: #fefefe;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+#head
+{
+    font-weight: bold;
+    background-color: darkblue;
+    color: white;
+    box-shadow: 0 0 10px;
+    width:100%;
+     justify-content: center;
+    align-items: center;
+}
+           .main
+           {
+               width:80%;
+               border-color: black;
+               height:20px;
+                height: 85vh;
+               box-shadow: 0 0 15px;
+               justify-content: center;
+               align-content: center;
+                   align-items: center;
+    display: flex;
+margin-top: 15px;
+}
+        .textbox
+           {
+              margin :10px;  
+           }
+           .head
+           {
+               background-color: lightgray;
+               width:100%;
+               text-align: center;
+               height:30px;
+               font-size: 25px;
+               width:500px;
+           }
+           .content
+           {
+               background-color: white;
+               width:100%;
+               text-align: center;
+               height:30px;
+               font-size: 25px;
+               width:500px;
+           }
+           #boxes
+           {
+               width:1000px;
+           }
+           #image
+           {
+               width:30px;
+               height:30px;
+           }
+           img
+           {
+               border-color: black;
+           }
+          #btn
+           {
+               background-color: darkblue;
+               color:white;
+               border-color: darkblue;
+           }
+           .button
+           {
+               background-color: darkblue;
+               color:white;
+               border-color: darkblue;
+               width:100px;
+           }
+
+        </style>
+        <title>CodeStuff</title>
+    </head>
+       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">   
+    <body>
+   {{>header}}
+        
+        
+        
+        <div  id="b">
+        
+        <table height="10%" width="100%">
+        
+        <tr>
+            
+            <td width="100%"><button>Community List </button></td>
+            
+            <td width="40%">  </td>
+            <td width="50%"> </td>
+            
+            <td> <button id="refresh"> Refresh</button></td>
+              
+            <td>
+            <select id="ruletab">
+                <option value="All">All</option>
+                     <option value="Direct">Direct</option>
+                     <option value="Permission">Permission</option>
+                </select>
+            
+            </td>     
+                
+            </tr>
+        
+        
+        </table>
+           </div>
+        
+        
+        
+         <div>
+        
+        <table id="ctable" width="100%" border="2" cellpadding = "5" cellspacing = "5">
+          <thead>
+            <tr height="20%">
+          
+                <td><strong>Community Name</strong></td>
+                <td><strong>Membership Rule</strong></td>
+                <td><strong>Community Location</strong></td>
+                <td><strong>Community Owner</strong></td>
+                <td><strong>Create Date</strong></td>
+                <td><strong>Actions</strong></td>
+                <td><strong>Community Pic</strong></td>
+              
+            </tr>
+            </thead>
+            <tbody id="cdata">
+      
+
+           
+            
+            </tbody>
+           </table>
+        
+        
+        
+        
+        </div> 
+        
+        
+        <div id="myModal" class="modal" style="width:100%;float:center">
+
+  <!-- Modal content -->
+    <span class="close">&times;</span>
+  <div class="modal-content" id="modal-content" style="width:950px;float:center">
+  </div>
+
+</div>
+        
+        
+        
+        
+        
+        
+        
+        
+         </body>
+    <script>
+ 
+                       
+             
+      
+                     var    btn=document.createElement("button");
+                     btn.setAttribute("id","btn");
+                        btn.innerHTML="CodeStuff";
+                     document.getElementById("user").appendChild(btn);
+        
+        
+        var modal = document.getElementById("myModal");
+         var span = document.getElementsByClassName("close")[0];
+        
+     
+        
+        $(document).ready(function(){
+            table=$('#ctable').DataTable();
+        })
+        
+        
+        
+        
+               
+          var    tab1=document.getElementById("ruletab");
+                  
+                     
+                      var prevt=tab1;
+   
+ 
+                var curusser=[];   
+         
+         setInterval(function()
+           {
+    if(prevt!=document.getElementById("ruletab").value)
+        {
+            prevt=document.getElementById("ruletab").value; 
+        
+      
+        
+        
+        var xhttp=new XMLHttpRequest();
+      
+        
+        
+         xhttp.open("GET",'/cusers');  
+    xhttp.setRequestHeader("content-type","application/json");
+xhttp.send();
+         xhttp.onreadystatechange=function()
+            {
+        
+        table.clear().draw();   
+                 if (this.readyState == 4 && this.status == 200) {
+                     curusser=JSON.parse(this.responseText);
+                     
+                     for(var    i=0;i<curusser.length;i++)
+                         {
+                             
+                            //actions
+                       var action=document.createElement("td" );
+                      
+                              var    btn1=document.createElement("button");
+                             btn1.setAttribute("id","edit"+i);
+                             btn1.setAttribute("class","edit");
+                             btn1.innerHTML='<i class="far fa-edit"></i>&nbsp;';
+                             action.appendChild(btn1);
+                             
+                              var    btn2=document.createElement("button");
+                             btn2.setAttribute("id","desc"+i);
+                             btn2.setAttribute("class","desc");
+                             btn2.innerHTML='<i class="fas fa-info"></i>&nbsp;';
+                             action.appendChild(btn2);
+                             
+                             var pic=document.createElement("td" );
+                             var img=document.createElement("img");
+                             img.setAttribute("src","community.jpg");
+                             pic.appendChild(img);
+                             
+                    
+                             
+                          if(tab1.value=='All')
+                              table.row.add( [curusser[i].cName,curusser[i].cRule,"Not Added","superadmin",curusser[i].cDate,action.innerHTML,pic.innerHTML] ).draw();
+                             
+                                 
+                        else  if(tab1.value==curusser[i].cRule)
+                              table.row.add( [curusser[i].cName,curusser[i].cRule,"Not Added","superadmin",curusser[i].cDate,action.innerHTML,pic.innerHTML] ).draw();
+                       
+                             
+                         }
+                     
+                     
+                 }
+             
+             
+              span.onclick = function() {
+                                            modal.style.display = "none";
+                                        }
+                                        window.onclick = function(event) {
+                                            if (event.target == modal) {
+                                                modal.style.display = "none";
+                                            }
+                                        }
+        
+            
+         }
+        
+        
+         }
+         },1000); 
+         
+         
+         setInterval(function(){
+                for(var i=0;i<curusser.length;i++){
+                   
+                    if(document.getElementById("edit"+i)){
+                
+            document.getElementById("edit"+i).onclick=function(event){
+                
+                 var userdata=$(this).parent().parent()[0].children;
+               //  console.log(event.target.parentElement.parentElement.firstChild.innerHTML);
+                             document.getElementById("modal-content").innerHTML="UPDATE";
+                                  modal.style.display="block";
+                             var    inp1=document.createElement("input");
+                inp1.setAttribute("id","inp1");
+                            inp1.setAttribute("value",userdata[0].innerHTML);
+                             document.getElementById("modal-content").appendChild(inp1);
+                document.getElementById("modal-content").innerHTML+="<br>";
+                 var    inp2=document.createElement("input");
+                inp2.setAttribute("id","inp2");
+                            inp2.setAttribute("value","DEACTIVE");
+                             document.getElementById("modal-content").appendChild(inp2);
+                                document.getElementById("modal-content").innerHTML+="<br>";
+                 
+                var btn1=document.createElement("button");
+                btn1.setAttribute("id","success");
+                btn1.innerHTML="UPDATE";
+                document.getElementById("modal-content").appendChild(btn1);
+                btn1.onclick=function(){
+                   xhttp.open("PUT",'/cupdate',true);
+                     xhttp.setRequestHeader("content-type","application/json;charset=UTF-8");
+                    var obj=new Object();
+             obj.Name=userdata[0].innerHTML;
+                  obj.cName=document.getElementById("inp1").value;
+                    obj.Status=document.getElementById("inp2").value;
+                   
+                   // xhttp.send();
+  xhttp.send(JSON.stringify(obj));
+                     xhttp.onreadystatechange=function()
+            {
+                 if (this.readyState == 4 && this.status == 200) {
+                    if(this.responseText=="UPDATED"){
+                       console.log("UPDATED");
+                        window.location.href=('/communitylists')
+                        sendreq();
+                    }
+                     else
+                         alert("Error");
+            }
+            };
+                      // location.replace("userlists.html");
+                }
+                
+            }
+            }
+            } 
+                
+            },1000);
+         
+         
+         
+          
+         
+         setInterval(function(){
+                for(var i=0;i<curusser.length;i++){
+                   
+                    if(document.getElementById("desc"+i)){
+                
+            document.getElementById("desc"+i).onclick=function(event){
+                userdata=$(this).parent().parent()[0].children;
+                 xhttp.open("POST",'/desc');
+                xhttp.setRequestHeader("content-type","application/json;charset=UTF-8");
+                var obj=new Object();
+                
+                obj.Name=userdata[0].innerHTML;
+             console.log(userdata[0].innerHTML);
+                 xhttp.send(JSON.stringify(obj));
+                var comm=[];
+                
+                xhttp.onreadystatechange=function()
+            {
+                
+                 if (this.readyState == 4 && this.status == 200) {
+                     comm=JSON.parse(this.responseText);
+                     console.log(comm);
+                 
+                 
+      //console.log(comm[i].cDesc);
+               
+               //  console.log(event.target.parentElement.parentElement.firstChild.innerHTML);
+                             document.getElementById("modal-content").innerHTML="Community Description";
+                                  modal.style.display="block";
+                             var    inp1=document.createElement("input");
+                inp1.setAttribute("id","inp1");
+                         inp1.setAttribute("value",comm.cDesc);
+                     inp1.setAttribute("readonly","readonly");
+                             document.getElementById("modal-content").appendChild(inp1);
+                document.getElementById("modal-content").innerHTML+="<br>";
+                
+                 
+                var btn1=document.createElement("button");
+                btn1.setAttribute("id","close");
+                btn1.innerHTML="Close";
+                document.getElementById("modal-content").appendChild(btn1);
+                 
+                btn1.onclick=function(){
+                     window.location.href=("/communitylists");
+                }
+                 }
+                
+                }
+                
+                
+                  
+            }
+            };
+                      //
+                
+            }
+            },1000);  
+        
+        
+         var mxhttp=new XMLHttpRequest();
+         var curusser;
+    
+    var obj=new Object();
+    obj.name=name;
+        
+        
+                   
+             mxhttp.open("POST",'/cphotos');
+     mxhttp.setRequestHeader("content-type","application/json;charset=UTF-8");
+        mxhttp.send(JSON.stringify(obj));
+         mxhttp.onreadystatechange=function()
+            {console.log("open");
+           
+                 if (this.readyState == 4 && this.status == 200) {
+                      // console.log("req for photo");
+                     curusser=((this).responseText);
+                     curusser=curusser.slice(7,curusser.length);
+                    console.log(curusser);
+                     if(curusser)
+        { var img=document.getElementById("img").setAttribute("src","../"+curusser);
+          //var img=document.getElementById("img1").setAttribute("src","../"+curusser);
+        }
+                     
+                          
+             else{
+                var img=document.getElementById("img").setAttribute("src","../community.jpg");
+                     // var img=document.getElementById("img1").setAttribute("src","../community.jpg");
+             }
+                 }
+        
+         }
+   
+         
+   </script>
+   </html>

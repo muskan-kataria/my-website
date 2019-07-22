@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html>
+    
+    <head>  
+
+ <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css"/>
+         
+        <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+<style>
+    
+    #image1{
+        height:50px;
+    }
+    
+    .textbox
+           {
+              margin :10px;  
+               width:1460px;
+           }
+           .head
+           {
+               background-color: lightgray;
+              // width:100%;
+               text-align: center;
+               height:30px;
+               font-size: 25px;
+               width:1460px;
+           }
+           .content
+           {
+               background-color: white;
+              // width:"100%";
+               text-align: left;
+               height:30px;
+               font-size: 25px;
+               width:1460px;
+           }
+           #boxes
+           {
+               width:1460px;
+           }
+        
+             #imageUpload
+{
+    display: none;
+}
+
+#profileImage
+{
+    cursor: pointer;
+}
+
+#profile-container {
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    -ms-border-radius: 50%;
+    -o-border-radius: 50%;
+    border-radius: 50%;
+}
+
+#profile-container img {
+    width: 150px;
+    height: 150px;
+    }
+    
+     #head
+{
+    font-weight: bold;
+    background-color: darkblue;
+    color: white;
+    box-shadow: 0 0 10px;
+    width:100%;
+     justify-content: center;
+    align-items: center;
+}
+        
+        
+       
+        
+         input{
+        width:1460px;
+        float:center;
+        align-self: center;
+    }
+        
+        
+        </style>
+    
+
+    <title>CodeStuff</title>
+    </head>
+       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">   
+    <body onload="sendreq()">
+        
+        {{>header}}
+        
+        <div id="main">
+            
+            
+             <!--   PHOTO-->
+ <form action="/uploadphoto" method="POST" enctype="multipart/form-data">
+      <div class="file-field input-field">
+        <div class="btn grey">
+          <span>Image</span>
+          <input name="myImage" type="file" >
+        </div>
+        <div class="file-path-wrapper">
+          <input class="file-path validate" type="text">
+        </div>
+      </div>
+      <button type="submit" class="btn">Upload Photo</button>
+    </form>
+            
+
+<img  height="100px" width="100px" id="img">
+            
+            
+
+        
+             <div>
+                 <h2>  Basic Info</h2>
+                 <table width="100%">
+       <tr>
+                     
+                     <td>
+               <div class="textbox">
+                <div class="head" ><p>Email</p></div>
+                <div class="content"><input type="text" id="email" size="35"></div>
+               </div>
+           </td>
+           
+                     </tr>
+               
+               <tr>
+                   <td>
+           
+           <div class="textbox">
+                <div class="head"><p>Name</p></div>
+                <div class="content"><input type="text" id="name1"></div>
+               </div>
+
+                   </td>
+                     </tr>
+                     
+                     <tr>
+                         <td>
+               
+            <div class="textbox">
+                <div class="head"><p>DOB</p></div>
+                <div class="content"><input type="text" id="dob"></div>
+               </div>
+                         </td>
+                     </tr>
+                     
+                     
+                     <tr>
+                         <td>
+ <div class="textbox">
+                <div class="head"><p>Gender</p></div>
+                <div class="content"><input type="text" id="gender"></div>
+               </div>
+                         </td>
+                     </tr>
+              </table>
+             
+             </div>
+             
+             
+        
+            
+            <div border:"4">
+                
+                <div>
+            <h2>    Contact Info
+                    </h2>                
+            
+             
+             <div class="textbox">
+                  <div class="head"><p>Phone</p></div>
+                <div class="content"><input type="text" id="phone"></div>
+                </div>
+             
+               <div class="textbox">
+                  <div class="head"><p>City</p></div>
+                <div class="content"><input type="text" id="city"></div>
+                </div>
+             
+             
+             </div>
+             
+        <button id="update1">update</button>
+            <button id="cancel">Cancel</button>
+            
+        
+        </div>
+        
+        
+        
+        
+        
+        
+        
+        </div>  
+        
+        
+    </body>
+    <script>
+        
+ 
+       
+              var    btn=document.createElement("button");
+                     btn.setAttribute("id","btn");
+                        btn.innerHTML="CodeStuff";
+                     document.getElementById("user").appendChild(btn);
+    
+    
+           
+   var mxhttp=new XMLHttpRequest();
+         var curusser;
+        
+        
+                   
+             mxhttp.open("GET",'/photos');
+        mxhttp.send();
+         mxhttp.onreadystatechange=function()
+            {
+           
+                 if (this.readyState == 4 && this.status == 200) {
+                      // console.log("req for photo");
+                     curusser=((this).responseText);
+                     curusser=curusser.slice(7,curusser.length);
+                   // console.log(curusser.final.path);
+                     if(curusser)
+         var img=document.getElementById("img").setAttribute("src",curusser);
+                     
+                          
+             else
+                var img=document.getElementById("img").setAttribute("src","logo.jpg"); 
+                 }
+        
+         }
+        
+        
+        
+        
+        
+        /*************************************************************/
+    
+   
+        
+        
+        var currusser;
+           
+        
+        var email=document.getElementById("email");
+        var name1=document.getElementById("name1");
+        var phone=document.getElementById("phone");
+        var gender=document.getElementById("gender");
+        var city=document.getElementById("city");
+         var dob=document.getElementById("dob");
+        
+        var xhttp=new XMLHttpRequest();
+        function    sendreq(){
+        xhttp.open("GET",'/currentSession');
+        xhttp.send();
+         xhttp.onreadystatechange=function()
+            {
+                 if (this.readyState == 4 && this.status == 200) {
+                     curruser=JSON.parse(this.responseText);
+                     
+                     console.log(curruser);
+      email.setAttribute("value",curruser.Email);
+                      dob.setAttribute("value",curruser.DOB);
+                      name1.setAttribute("value",curruser.Name);
+                      phone.setAttribute("value",curruser.Phone);
+                      gender.setAttribute("value",curruser.Gender);
+                      city.setAttribute("value",curruser.City);
+        
+                 }
+         }
+        }
+      
+        
+       
+                      
+        
+        var b1=document.getElementById("update1");
+        var b2=document.getElementById("cancel");
+        
+        
+        
+        b2.onclick=function(){
+            window.location.href=("/admin");
+        }
+        
+        b1.onclick=function(){
+            console.log("onclick");
+             var newobj=new  Object();
+                newobj.email=email.value;
+            
+                newobj.city=city.value;
+                newobj.dob=dob.value;
+                newobj.phone=phone.value;
+                newobj.name1=name1.value;
+                newobj.gender=gender.value;
+            newobj.status="confirmed";
+
+                console.log(newobj);
+                var xhr=new XMLHttpRequest();
+                xhr.open("PUT",'/edit');
+                xhr.setRequestHeader("content-type","application/json");
+                xhr.send(JSON.stringify(newobj));
+                 xhr.onreadystatechange=function()
+            {
+                 if (this.readyState == 4 && this.status == 200) {
+                    if(this.responseText=="edited")
+                        alert("Edit SUCCESSFULLY");
+                     else
+                         alert("Error");
+            }
+            };
+                
+            }
+ 
+    
+    </script>
+    
+    
+</html>

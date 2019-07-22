@@ -1,0 +1,466 @@
+<html>
+
+<head>
+     <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css"/>
+         
+        <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+     <style>
+         
+         .tick{
+             height:25px;
+             width: :25px;
+             background-color: greenyellow;
+         }
+         
+            .cross{
+             height:25px;
+             width: :25px;
+             background-color:red;
+         }
+         
+         #h{
+             background-color: aqua;
+             height:50px;
+                 width:100%;
+         }
+         
+        
+
+#head
+{
+    font-weight: bold;
+    background-color: darkblue;
+    color: white;
+    box-shadow: 0 0 10px;
+    width:100%;
+     justify-content: center;
+    align-items: center;
+}
+           .main
+           {
+               width:80%;
+               border-color: black;
+               height:20px;
+                height: 85vh;
+               box-shadow: 0 0 15px;
+               justify-content: center;
+               align-content: center;
+                   align-items: center;
+    display: flex;
+margin-top: 15px;
+}
+        .textbox
+           {
+              margin :10px;  
+           }
+           .head
+           {
+               background-color: lightgray;
+               width:100%;
+               text-align: center;
+               height:30px;
+               font-size: 25px;
+               width:500px;
+           }
+           .content
+           {
+               background-color: white;
+               width:100%;
+               text-align: center;
+               height:30px;
+               font-size: 25px;
+               width:500px;
+           }
+           #boxes
+           {
+               width:1000px;
+           }
+           #image
+           {
+             width:5px;
+               height:5px;
+           }
+           img
+           {
+               border-color: black;
+           }
+
+        </style>
+        <title>CodeStuff</title>
+    </head>
+       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">   
+    
+
+    <body>
+  
+   {{>userheader}}
+    
+    <div id="h">
+        
+
+        </div>
+    
+
+        <div >
+
+           <div id="d">
+            
+    
+            <img id="img">
+               
+               
+            
+            </div>
+            
+            <button style="float:right" onclick="back()">Back</button>
+        
+        </div>
+    
+     
+    
+    
+    </body>
+
+<script>
+    
+                   
+             
+      
+                     var    btn=document.createElement("button");
+                     btn.setAttribute("id","btn");
+                        btn.innerHTML="CodeStuff";
+                     document.getElementById("user").appendChild(btn);
+    
+    
+    
+    
+  var name=localStorage.getItem("data");
+    //console.log(name);
+    
+    
+    
+    
+    var cname=document.createElement("b");
+    cname.innerHTML=name;
+    
+    document.getElementById("d").appendChild(cname);
+    
+    
+     var xhttp=new XMLHttpRequest();
+         var comm=[];
+    
+    var obj=new Object();
+    obj.name=name;
+            
+        xhttp.open("GET",'/mycomm');
+             xhttp.setRequestHeader("content-type","application/json;charset=UTF-8");
+        xhttp.send(JSON.stringify(obj));
+         xhttp.onreadystatechange=function()
+            {
+             console.log("fxn");
+                 if (this.readyState == 4 && this.status == 200) {
+                     comm=JSON.parse(this.responseText);
+                        console.log(comm);
+                          
+    
+         
+                     
+                     var h=document.createElement("h2");
+                     h.innerHTML="Requests";
+                      document.getElementById("d").appendChild(h);
+                     
+                     
+      
+         var ol=document.createElement("ol");
+    var req=[];
+    
+    
+    for(var i=0;i<comm.length;i++)
+        {
+             req=comm[i].request;
+                    console.log(req);
+            if(comm[i].cName==name)
+                {
+                 for(var j=0;j<req.length;j++)
+                        {
+                    var li="l1"+j;
+                    li=document.createElement("li");
+                   
+                            
+                            var p1=document.createElement("p");
+                            var btn1=document.createElement("button");
+                            var btn2=document.createElement("button");
+                             p1.innerHTML=req[j];
+                            
+                            
+                            
+                            btn1.setAttribute("id","btn1"+j);
+                            btn2.setAttribute("id","btn2"+j);
+                            
+                            btn1.setAttribute("class","tick");
+                             btn2.setAttribute("class","cross");
+                            
+                            
+                            btn1.innerHTML='<i class="fas fa-check-circle"></i>';
+                            btn2.innerHTML='<i class="far fa-times-circle"></i>';
+                            
+                              li.appendChild(p1);
+                             li.appendChild(btn1);
+                             li.appendChild(btn2);
+                            ol.appendChild(li);
+                          
+                    
+                    
+                        }
+                    
+                      document.getElementById("d").appendChild(ol);
+                    
+                }
+            
+            
+            
+            
+            
+        }
+         
+         
+                 }
+         }
+         
+        
+         setInterval(function(){
+                for(var i=0;i<comm.length;i++){
+                   
+                    if(document.getElementById("btn1"+i)){
+                
+            document.getElementById("btn1"+i).onclick=function(event){
+                
+                 var userdata=$(this).parent().parent()[0].children;
+                
+                console.log("data"+userdata[0].children[0].innerHTML);
+                
+                
+                var exhttp=new XMLHttpRequest();
+                
+                var obj=new Object;
+                obj.email=userdata[0].children[0].innerHTML;
+                obj.name=name;
+    
+ 
+        exhttp.open("POST",'/pushrequest',true);
+                exhttp.setRequestHeader("content-type","application/json;charset=UTF-8");
+        exhttp.send(JSON.stringify(obj));
+         exhttp.onreadystatechange=function()
+            {
+                 if (this.readyState == 4 && this.status == 200) {
+                     if(this.responseText=="updated"){
+                         console.log("updated");
+                           var mxhttp=new XMLHttpRequest();
+                
+                var obj=new Object;
+                obj.email=userdata[0].children[0].innerHTML;
+                obj.name=name;
+                         
+                         
+                         
+                                       
+                     
+                     var com;
+                     var id;
+                         var obj2=new Object();
+                         obj2.Name=obj.name;
+                     
+                     xhttp=new XMLHttpRequest();
+            xhttp.open("POST",'/myrequests');
+                     xhttp.setRequestHeader("content-type","application/json");
+                                    xhttp.send(JSON.stringify(obj2));
+                                     xhttp.onreadystatechange=function()
+            {
+                                           console.log("click");
+                 if (this.readyState == 4 && this.status == 200) {
+                     com=JSON.parse(this.responseText);
+                     id=com._id;
+                     
+                 }
+                                         
+                                         console.log(id);
+                                         
+                                         var obj3=new Object();
+                                         obj3.id=id;
+                                         
+                                      var    bxhttp=new XMLHttpRequest();
+            bxhttp.open("POST",'/ujoined');
+                     bxhttp.setRequestHeader("content-type","application/json");
+                                    bxhttp.send(JSON.stringify(obj3));
+                                     bxhttp.onreadystatechange=function()
+            {
+                                         //  console.log("click");
+                 if (this.readyState == 4 && this.status == 200) {
+                     if(this.responseText=="updated");
+                    // location.replace('communities.html');
+                     
+                 }
+                                         
+                                         
+                                     }
+                                         
+                                         
+                                         
+                                         
+                                     }
+                         
+                         
+                         
+                         
+    
+           mxhttp.open("POST",'/pullrequest',true);
+                         mxhttp.setRequestHeader("content-type","application/json;charset=UTF-8");
+        mxhttp.send(JSON.stringify(obj));
+         mxhttp.onreadystatechange=function()
+            {
+                 if (this.readyState == 4 && this.status == 200) {
+                     if(this.responseText=="updated"){
+                         console.log("updated");
+                   window.location.href=('/requests');
+                     }
+                     
+                     else
+                         alert("error");
+                     
+                 
+                     
+                 }
+             
+         }
+                         
+                   // location.replace('requests.html');
+                     }
+                     
+                     else
+                         alert("error");
+                     
+                 
+                     
+                 }
+             
+         }
+         
+                             
+         
+                
+                
+                
+               
+            
+                    }
+                }
+         }
+         },1000);
+         
+         
+         
+         
+    
+       
+         setInterval(function(){
+                for(var i=0;i<comm.length;i++){
+                   
+                    if(document.getElementById("btn2"+i)){
+                
+            document.getElementById("btn2"+i).onclick=function(event){
+                
+                 var userdata=$(this).parent().parent()[0].children;
+                
+                console.log("data"+userdata[0].children[0].innerHTML);
+                
+                
+                var mxhttp=new XMLHttpRequest;
+                
+               var obj=new Object;
+                obj.email=userdata[0].children[0].innerHTML;
+                obj.name=name;
+    
+           mxhttp.open("POST",'/pullrequest',true);
+                         mxhttp.setRequestHeader("content-type","application/json;charset=UTF-8");
+        mxhttp.send(JSON.stringify(obj));
+         mxhttp.onreadystatechange=function()
+            {
+                 if (this.readyState == 4 && this.status == 200) {
+                     if(this.responseText=="updated"){
+                         console.log("updated");
+                   window.location.href=('/requests');
+                     }
+                     
+                     else
+                         alert("error");
+                     
+                 
+                     
+                 }
+             
+         } 
+                
+                
+               
+            }
+                    }
+                }
+         },1000);
+    
+    
+    
+    
+ 
+        
+ function back(){
+        window.location.href=('/communities');
+    }
+    
+    
+     var mxhttp=new XMLHttpRequest();
+         var curusser;
+    
+    var obj=new Object();
+    obj.name=name;
+        
+        
+                   
+             mxhttp.open("POST",'/cphotos');
+     mxhttp.setRequestHeader("content-type","application/json;charset=UTF-8");
+        mxhttp.send(JSON.stringify(obj));
+         mxhttp.onreadystatechange=function()
+            {console.log("open");
+           
+                 if (this.readyState == 4 && this.status == 200) {
+                      // console.log("req for photo");
+                     curusser=((this).responseText);
+                     curusser=curusser.slice(7,curusser.length);
+                    console.log(curusser);
+                     if(curusser)
+        { var img=document.getElementById("img").setAttribute("src","../"+curusser);
+          var img=document.getElementById("img1").setAttribute("src","../"+curusser);
+        }
+                     
+                          
+             else{
+                var img=document.getElementById("img").setAttribute("src","../community.jpg");
+                      var img=document.getElementById("img1").setAttribute("src","../community.jpg");
+             }
+                 }
+        
+         }
+    
+      
+          
+          
+    </script>
+</html>
+    

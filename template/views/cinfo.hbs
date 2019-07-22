@@ -1,0 +1,508 @@
+<! DOCTYPE html>
+<html>
+
+<head>
+     <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css"/>
+         
+        <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+     <style>
+         
+         .vl {
+  border-left: 6px solid black;
+             
+  height: 200px;
+  position: absolute;
+  left: 30%;
+  margin-left: -3px;
+  top:320px;
+}
+         
+         #rightbox{ 
+                float:right;
+        margin-right: 60px;
+             align-content:center;
+             background-color: beige;
+               border:solid black;
+                width:50%; 
+                height:100px; 
+            } 
+        
+         #leftbox { 
+                float:left; 
+             background-color: antiquewhite;
+             margin-left: 40px;
+            border:solid black; 
+                width:25%; 
+                height:100px; 
+            } 
+         
+            #box3 { 
+                background-color: antiquewhite;
+                margin-left: 40px;
+            
+            margin-top: 200px;   
+            border:solid black; 
+                width:25%; 
+                height:100px; 
+            } 
+        
+         
+         #d{
+             display: block;
+             align-items: center;
+             
+         }
+         
+         #h{
+             background-color: aqua;
+             height:50px;
+                 width:100%;
+         }
+         
+        
+
+#head
+{
+    font-weight: bold;
+    background-color: darkblue;
+    color: white;
+    box-shadow: 0 0 10px;
+    width:100%;
+     justify-content: center;
+    align-items: center;
+}
+           .main
+           {
+               width:80%;
+               border-color: black;
+               height:20px;
+                height: 85vh;
+               box-shadow: 0 0 15px;
+               justify-content: center;
+               align-content: center;
+                   align-items: center;
+    display: flex;
+margin-top: 15px;
+}
+        .textbox
+           {
+              margin :10px;  
+           }
+           .head
+           {
+               background-color: lightgray;
+               width:100%;
+               text-align: center;
+               height:30px;
+               font-size: 25px;
+               width:500px;
+           }
+           .content
+           {
+               background-color: white;
+               width:100%;
+               text-align: center;
+               height:30px;
+               font-size: 25px;
+               width:500px;
+           }
+           #boxes
+           {
+               width:1000px;
+           }
+           #image
+           {
+               width:30px;
+               height:30px;
+           }
+           img
+           {
+               border-color: black;
+           }
+        
+           
+
+        </style>
+        <title>CodeStuff</title>
+    </head>
+       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">   
+    
+
+    <body>
+    {{>userheader}}
+    
+    <div id="h">
+        
+
+        </div>
+    
+
+        <div >
+            
+           
+
+           <div id="d">
+            
+    
+               
+            
+            </div>
+            
+            <div id="box1"></div>
+            <div id="rightbox"></div>
+            
+           
+        
+        </div>
+        
+        
+        <div id="box3"></div>
+        <div>
+    
+     
+     <button style="float:right" onclick="back()">Back</button>
+            
+        </div>
+    
+    </body>
+
+<script>
+   
+    
+    
+    
+  var name=localStorage.getItem("data");
+   // console.log(name);
+    
+  
+    
+                   
+             
+      
+                     var    btn=document.createElement("button");
+                     btn.setAttribute("id","btn");
+                        btn.innerHTML="CodeStuff";
+                     document.getElementById("user").appendChild(btn);
+ 
+    
+          
+        
+ function back(){
+        window.location.href=('/communities');
+    }
+    
+     var email;
+                 
+             
+            var xhttp=new XMLHttpRequest();
+         var curruser;
+        xhttp.open("GET",'/currentSession');
+        xhttp.send();
+         xhttp.onreadystatechange=function()
+            {
+                 if (this.readyState == 4 && this.status == 200) {
+                     curruser=JSON.parse(this.responseText);
+                       email=curruser.Email; 
+                     
+                    //  console.log(email);
+                 }
+             
+          
+              
+          
+         }
+ 
+    let mxhttp=new XMLHttpRequest;
+                
+               
+     var comm=[];
+   
+   
+           mxhttp.open("GET",'/mycomm');
+                         mxhttp.setRequestHeader("content-type","application/json");
+    var obj=new Object();
+                obj.Name=name;
+        mxhttp.send(JSON.stringify(obj));
+  
+         mxhttp.onreadystatechange=function()
+            {
+                 if (this.readyState == 4 && this.status == 200) {
+                   comm=JSON.parse((this).responseText);
+                     
+           for(var i=0;i<comm.length;i++)
+                {
+                   if(comm[i].cName==name)
+                {
+                    
+                    var f=0;
+                 
+                    
+                    
+                    
+                    for(var j=0;j<comm[i].request.length;j++)
+                        {
+                
+                            
+                            
+                            if(email==comm[i].request[j])
+                              {  f=1;
+                              // console.log(email);
+                              // console.log(f);
+                              }
+                        }
+         
+    
+                        
+                    
+                   // console.log(f);
+                    
+                    var div=document.createElement("div");
+                    div.setAttribute("id","leftbox")
+                     div.setAttribute("background-color","gray")
+                    
+                    var rule=document.createElement("button");
+                    if(comm[i].cRule=="Direct")
+                       { 
+                            var rule1=document.createElement("button");
+                           rule1.innerHTML="Join";
+                        rule1.setAttribute("id","join");
+                                 div.appendChild(rule1);
+                       }
+                    
+                      else  if(f==1)
+                            {
+                                   var rule=document.createElement("button");
+                              rule.innerHTML="Requested";  
+                                div.appendChild(rule);
+                            }
+                    else
+                   { 
+                       
+                         var rule2=document.createElement("button");
+                       rule2.innerHTML="Ask To Join";
+                    rule2.setAttribute("id","ask");
+                       div.appendChild(rule2);
+                   }
+                    
+              
+                    
+                    var mem=document.createElement("h3");
+                    mem.innerHTML=(comm[i].member).length+"  Members";
+                    
+                     div.appendChild(mem);
+                    
+                    
+                      document.getElementById("box1").appendChild(div);
+                    
+                    
+                    var vline=document.createElement("div");
+                    vline.setAttribute("class","vl")
+                    document.getElementById("box1").appendChild(vline);
+                    
+                    
+                    
+                  var d1= document.createElement("div"); 
+                   var d2= document.createElement("div"); 
+                    
+                    
+                    d1.setAttribute("background-color","blue");
+                     d2.setAttribute("background","red");
+                    
+                    var p1=document.createElement("h3")
+                     var p2=document.createElement("h3")
+                     
+                     p1.innerHTML="About Community";
+                    p2.innerHTML=comm[i].cDesc;
+                    
+                    d1.appendChild(p1);
+                     d2.appendChild(p2);
+                    
+                    document.getElementById("rightbox").appendChild(d1);
+                     document.getElementById("rightbox").appendChild(d2);
+                    
+                    
+                    
+                    
+                
+                    var d3= document.createElement("div"); 
+                   var d4= document.createElement("div"); 
+                    
+                    
+                    d3.setAttribute("background-color","blue");
+                     d4.setAttribute("background","red");
+                    
+                    var p3=document.createElement("h3")
+                     var p4=document.createElement("h3")
+                     
+                     p3.innerHTML="Community Manager";
+                    p4.innerHTML=comm[i].cManager;
+                    
+                    d3.appendChild(p3);
+                     d4.appendChild(p4);
+                    
+                    document.getElementById("box3").appendChild(d3);
+                     document.getElementById("box3").appendChild(d4);
+                    
+                    
+                    
+                  if(comm[i].cRule=="Direct"){  
+                    
+                      document.getElementById("join").onclick=function(){
+           
+      var obj=new Object();
+            obj.Name=name;
+                //console.log(obj.Name);
+              var  xhttp=new XMLHttpRequest();
+            xhttp.open("POST",'/cmember');
+                     xhttp.setRequestHeader("content-type","application/json");
+                                    xhttp.send(JSON.stringify(obj));
+                                     xhttp.onreadystatechange=function()
+            {
+                                    
+                 if (this.readyState == 4 && this.status == 200) {
+                    if(this.responseText=="updated"){   
+                        alert("congratulations you joined "+obj.Name);
+                        
+                        
+                                    
+                     var com;
+                     var id;
+                         var obj2=new Object();
+                         obj2.Name=obj.Name;
+                     
+                     xhttp=new XMLHttpRequest();
+            xhttp.open("POST",'/myrequests');
+                     xhttp.setRequestHeader("content-type","application/json");
+                                    xhttp.send(JSON.stringify(obj2));
+                                     xhttp.onreadystatechange=function()
+            {
+                                           console.log("click");
+                 if (this.readyState == 4 && this.status == 200) {
+                     com=JSON.parse(this.responseText);
+                     id=com._id;
+                     
+                 }
+                                         
+                                         console.log(id);
+                                         
+                                         var obj3=new Object();
+                                         obj3.id=id;
+                                         
+                                      var    bxhttp=new XMLHttpRequest();
+            bxhttp.open("POST",'/ujoined');
+                     bxhttp.setRequestHeader("content-type","application/json");
+                                    bxhttp.send(JSON.stringify(obj3));
+                                     bxhttp.onreadystatechange=function()
+            {
+                                         //  console.log("click");
+                 if (this.readyState == 4 && this.status == 200) {
+                     if(this.responseText=="updated");
+                    // location.replace('communities.html');
+                     
+                 }
+                                         
+                                         
+                                     }
+                                         
+                                         
+                                         
+                                         
+                                     }
+                        
+                        
+                        
+   window.location.href=('/cinfo');
+                                                                     }
+  }
+          }
+                                     
+                                     
+                                     
+            }
+                      
+                  }
+                      
+                      
+                      
+            if(comm[i].cRule=="Permission"&&f==0) {         
+                
+            document.getElementById("ask").onclick=function(){
+      
+      var obj=new Object();
+            obj.Name=name;
+              var  xhttp=new XMLHttpRequest();
+            xhttp.open("POST",'/crequest');
+                     xhttp.setRequestHeader("content-type","application/json");
+                                    xhttp.send(JSON.stringify(obj));
+                                     xhttp.onreadystatechange=function()
+            {
+                                    
+                 if (this.readyState == 4 && this.status == 200) {
+                    if(this.responseText=="updated"){   
+                        alert("requested for "+obj.Name);
+    window.location.href=('/cinfo');
+                                                                     }
+  }
+          }
+                                     
+                                     
+                                     
+            }
+            }
+            
+                    
+ 
+                    
+                    
+                    
+                }
+                }
+                   };
+        
+      
+                     }
+        
+        
+                
+
+      
+    
+         
+           
+    
+    
+    
+    
+    
+    
+    
+    var img=document.createElement("img");
+    img.setAttribute("src","community.jpg");
+    
+    var cname=document.createElement("h2");
+    cname.innerHTML=name;
+    
+     
+    var hr=document.createElement("hr");
+    
+   document.getElementById("d").appendChild(img); 
+document.getElementById("d").appendChild(cname);
+document.getElementById("d").appendChild(hr);    
+    
+    
+    
+    
+      
+          
+          
+    </script>
+</html>
+    

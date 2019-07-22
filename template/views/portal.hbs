@@ -1,0 +1,195 @@
+<html>
+    <head>
+       <style>
+#head
+{
+    font-weight: bold;
+    background-color: darkblue;
+    color: white;
+    box-shadow: 0 0 10px;
+    width:100%;
+     justify-content: center;
+    align-items: center;
+}
+           .main
+           {
+               width:80%;
+               border-color: black;
+               height:20px;
+                height: 85vh;
+               box-shadow: 0 0 15px;
+               justify-content: center;
+               align-content: center;
+                   align-items: center;
+    display: flex;
+margin-top: 15px;
+}
+        .textbox
+           {
+              margin :10px;  
+           }
+           .head
+           {
+               background-color: lightgray;
+               width:100%;
+               text-align: center;
+               height:30px;
+               font-size: 25px;
+               width:500px;
+           }
+           .content
+           {
+               background-color: white;
+               width:100%;
+               text-align: center;
+               height:30px;
+               font-size: 25px;
+               width:500px;
+           }
+           #boxes
+           {
+               width:1000px;
+           }
+           #image
+           {
+               width:30px;
+               height:30px;
+           }
+           img
+           {
+               border-color: black;
+           }
+          #btn
+           {
+               background-color: darkblue;
+               color:white;
+               border-color: darkblue;
+           }
+           .button
+           {
+               background-color: darkblue;
+               color:white;
+               border-color: darkblue;
+               width:100px;
+           }
+           
+
+        </style>
+        <title>CodeStuff</title>
+    </head>
+       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">   
+    <body onload="sendreq()">
+       
+     {{>header}}
+        <center>
+        <div class="main">
+           <table id="boxes">
+           <tr>
+           <td colspan="2" id="image">
+              <center>
+ <img  height="100px" width="100px" id="img"></center>
+           </td>
+               </tr>
+               
+               <tr>
+               <td id="editbtn"><button align="right">Edit</button></td>
+               
+               
+               </tr>
+           <tr>
+           <td> <div class="textbox">
+                <div class="head"><p>Email</p></div>
+                <div class="content"><p id="email"></p></div>
+               </div></td>
+               <td> <div class="textbox">
+                <div class="head"><p>Gender</p></div>
+                <div class="content"><p id="gender"></p></div>
+               </div></td></tr>
+                <tr>
+           <td> <div class="textbox">
+                <div class="head"><p>Name</p></div>
+                <div class="content"><p id="name"></p></div>
+               </div></td>
+               <td> <div class="textbox">
+                <div class="head"><p>City</p></div>
+                <div class="content"><p id="city"></p></div>
+               </div></td></tr>
+                <tr>
+           <td> <div class="textbox">
+                <div class="head"><p>D.O.B.</p></div>
+                <div class="content"><p id="dob"></p></div>
+               </div></td>
+               <td> <div class="textbox">
+                <div class="head"><p>Phone</p></div>
+                <div class="content"><p id="phone"></p></div>
+               </div></td></tr>
+            </table>
+        </div>
+        </center>
+    </body>
+    <script>
+       
+    var xhttp=new XMLHttpRequest();
+         var curruser;
+        function    sendreq(){
+        xhttp.open("GET",'/currentSession');
+        xhttp.send();
+         xhttp.onreadystatechange=function()
+            {
+                 if (this.readyState == 4 && this.status == 200) {
+                     curruser=JSON.parse(this.responseText);
+                     var    btn=document.createElement("button");
+                     btn.setAttribute("id","btn");
+                        btn.innerHTML="Hello "+curruser.Name;
+                     document.getElementById("user").appendChild(btn);
+                     console.log(document.getElementById("user").innerHTML);
+                     document.getElementById("name").innerHTML=curruser.Name;
+                    document.getElementById("dob").innerHTML=curruser.DOB;
+                     document.getElementById("phone").innerHTML=curruser.Phone;
+                     document.getElementById("email").innerHTML=curruser.Email;
+                     document.getElementById("city").innerHTML=curruser.City;
+                     document.getElementById("gender").innerHTML=curruser.Gender;
+                     btn.onclick=function()
+                     {
+                         window.location.href=("/admin");
+                     }
+            }
+            }
+         
+         
+         
+            
+             mxhttp.open("GET",'/photos');
+        mxhttp.send();
+         mxhttp.onreadystatechange=function()
+            {
+           
+                 if (this.readyState == 4 && this.status == 200) {
+                      // console.log("req for photo");
+                     curusser=((this).responseText);
+                     curusser=curusser.slice(7,curusser.length);
+                   // console.log(curusser.final.path);
+                     if(curusser)
+         var img=document.getElementById("img").setAttribute("src",curusser);
+                     
+                          
+             else
+                var img=document.getElementById("img").setAttribute("src","logo.jpg"); 
+                 }
+        
+         }
+        }
+        
+  
+        
+   var mxhttp=new XMLHttpRequest();
+         var curusser;
+        
+        
+        
+          var b=document.getElementById("editbtn");
+        b.onclick=function(){
+            window.location.href=("/editprofile");
+        }
+    </script>
+</html>
