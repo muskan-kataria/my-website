@@ -1,13 +1,98 @@
 <! DOCTYPE html>
 <html>
 <head>
-<title>login page</title>
-
+<title>CodeStuff</title>
     
-  </head>
-   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">   
-   <link rel="stylesheet" href="style.css">
- <body onload="inPage()">
+    <style>
+    
+    header,footer{
+    font-weight: bold;
+    background-color: white;
+    box-shadow: 0 0 10px;
+    width:100%;
+}
+        footer{
+            width:99%;
+        }
+        header{
+            height:60px;
+        }
+  
+      body{
+    height: 87vh;
+    
+}
+      
+
+.loginformholder{
+    height: 80%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#login
+{
+background-color: forestgreen;
+    color: white;
+    border-radius: 5px;
+    height: 40px;
+    width:20%;
+    border-color: forestgreen;
+}
+     
+
+        .container
+        {
+            width:100%;
+        }
+        
+.loginform{
+    width:50%;
+    box-shadow: 0px 0px 10px;
+    height: 60%; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+ input{
+    width: 100%;
+    height: 40px;
+    font-size: 22px;
+                 border-width: thin;
+} 
+h1
+{
+    font-size: 40px;
+}
+.myform{
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+@media only screen and (max-width: 1024px){
+    header{
+        font-size: 18px;
+    }
+    .loginform{
+        width: 100%;
+        box-shadow: 0px 0px 6px;
+    }
+    input{
+        font-size: 18px;
+    }
+    footer h5{
+        font-size: 14px;
+    }
+}
+    
+    </style>
+</head>
+   
+
+ <body onload="main()">
 <header style="width: 100%;height:60px;text-align:left">
       <p style="font-size: 30px;padding: 10px;font-weight: bold;">CodeStuff</p>
 </header>
@@ -23,21 +108,13 @@
                     <center><input type="password" placeholder="Password" id="password"></center>
                     <br>
                     <center><button class="btn btn-success btn-lg" id="login">Log in</button></center>
-                    <a href="/auth/github" class="btn btn-primary">GITHUB</a>
+                  
                 </form>
             </div>
         </div>
     </div>
      
-     
-   
-     
-     
-     
-     
-     
-     
-     
+  
      </center>
 
 <footer style="position:fixed">
@@ -45,33 +122,53 @@
     <br>
 </footer>
     <script>
-        function    inPage()
+        function    main()
         {
             var date=new    Date();
             var currdate=date.getFullYear();
             document.getElementById("copyright").innerHTML="CodeStuff &copy; "+currdate;
         }
-        var username=document.getElementById("username");
-        var pass=document.getElementById("pass");
+
         var email=document.getElementById("email");
 var pass=document.getElementById("password");
 var login=document.getElementById("login");
-
 login.onclick=function()
 {
     if(valid())
         {
+            var users=[];
             let xhr=new XMLHttpRequest();
             xhr.open("POST",'/check'); 
            xhr.setRequestHeader("content-type","application/json");
-            xhr.send(JSON.stringify({"email":email.value,"password":pass.value}));
+            xhr.send(JSON.stringify({"Email":email.value,"Password":pass.value}));
             xhr.onreadystatechange=function()
             {
                  if (this.readyState == 4 && this.status == 200) {
                      if(this.responseText=="successfully signed in")
-                    window.location.href=("/admin");
-                     else if(this.responseText=="not")
-                         alert("user is not allowed");
+                         {
+                             var    xhttp=new XMLHttpRequest();
+                             xhttp.open("POST",'/find')
+                             xhttp.setRequestHeader("content-type","application/json");
+            xhttp.send(JSON.stringify({"Email":email.value}));
+                             xhttp.onreadystatechange=function(){
+                                  if (this.readyState == 4 && this.status == 200){
+                                      users=JSON.parse(this.responseText);
+                                    
+                                      if(users[0].Status==='Confirmed'){
+                                          if(users[0].Role==='User')
+                                              window.location.href='/userportal';
+                                          else
+                                           window.location.href='/adminportal';
+                                      }
+                                      else
+                                          window.location.href='/edituser';
+                                  }
+                             };
+                         }
+                   else if(this.responseText=='INVALID Email/Password')
+                       alert("Invalid Password");
+                     else if(this.responseText='Invalid')
+                         alert("User Deactivated");
                      else
                          alert("User Not Registered");
             }
@@ -92,5 +189,6 @@ function    valid()
     return  true;
 }
      </script>
-  </body>
+      </body>
+ 
 </html>
