@@ -1,0 +1,793 @@
+<!DOCTYPE html>
+<html>
+<head>  
+
+ <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css"/>
+         
+        <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+
+
+    <style>
+        #inp1
+        {
+            width:300px;
+        }
+        .msg3
+{
+    background-color:red;
+  color:white;
+    border-color:red;
+}
+        .msg4
+ {
+    background-color:green;
+  color:white;
+    border-color:green;           
+  }  button{
+            
+            height:30px;
+            width="200%";
+        }
+         #success
+{
+    width:100px;
+    height:30px;
+    float:center;
+    align-self:center;
+}
+       /* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+
+
+ /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    justify-content:center;
+    align-items:center;
+    align-self:center;
+    align-content:center;
+    float:center;
+    padding:150px;
+}
+
+/* Modal Content/Box */
+.modal-content {
+  justify-content:center;
+    align-items:center;
+align-content:center;
+    float:center;
+    padding:20px; 
+    background-color: #fefefe;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color:#000;
+  text-decoration: none;
+  cursor: pointer;
+}
+#head
+{
+    font-weight: bold;
+    background-color: darkblue;
+    color: white;
+    box-shadow: 0 0 10px;
+    width:100%;
+     justify-content: center;
+    align-items: center;
+}
+    
+    #head{
+        background-color:darkblue;
+    }
+   
+      .main {
+        margin-left: 100px;
+        margin-top: 80px;
+        background-color: rgb(250, 250, 250);
+        transition: .5s;
+    }
+    .example {
+        border-width: 1px;
+        margin: 50px;
+        border-style: solid;
+        border-color: rgb(204, 203, 203);
+        width: 100%;
+    }
+    .dataTables_paginate {
+        margin-top: 10px;
+    }
+    .dataTables_filter {
+        margin-bottom: 10px;
+    }
+    select {
+        background-color: white;
+        width: 60px;
+        height: 25px;
+    }
+    .sorting {
+        border: .5px;
+        border-style: solid;
+        border-color: rgb(240, 240, 240);
+    }
+    .tabtext {
+        font-size: 14px;
+        color: white;
+        background-color: rgba(0, 0, 0, 0.76);
+        margin: 10px 5px 30px 5px;
+    }
+    .userdisp {
+        height: 20px;
+        padding: 5px 10px 5px 10px;
+        text-align: center;
+        border-radius: 5px;
+        box-shadow: 0 4px 8px 0 rgb(116, 115, 115);
+    }
+    .querytab {
+        float: right;
+        padding: 0px 5px;
+        height: 30px;
+    }
+    .actioncolumn {
+        text-align: center;
+    }
+    .actionbut {
+        padding: 5px 8px 5px 8px;
+        cursor: pointer;
+        margin: 5px;
+        font-size: 14px;
+        color: white;
+        display: inline-block;
+    }
+    .emailbut {
+        background-color: black;
+    }
+    .editbut {
+        background-color: blue;
+    }
+    .editmodal-div {
+        height: 30px;
+        display: grid;
+        grid-template-columns: 1fr 4fr;
+        font-size: 14px;
+    }
+    .editmodal-label {
+        text-align: right;
+        margin: 10px;
+    }
+    .editmodal-select {
+        height: 30px;
+        width: 100%;
+        border-radius: 5px;
+    }
+    .editmodal-input {
+        width: 100%;
+        height: 25px;
+        border-radius: 5px;
+        border-width: 1px;
+        background-color: white;
+        padding-left: 5px;
+    }
+    .modal-button {
+        background-color: white;
+        cursor: pointer;
+        width: 65px;
+        height: 35px;
+        display: inline-block;
+        padding: 6px 12px 6px 12px;
+        border-style: solid;
+        border-width: 1px;
+        border-radius: 3px;
+        text-align: center;
+    }
+    .modal-button:hover {
+        background-color: rgb(224, 224, 224);
+    }
+    .deactivatebut {
+        background-color: rgb(255, 196, 0);
+    }
+    .activatebut {
+        background-color: rgb(81, 255, 0);
+    }
+    .emailmodal-div {
+        height: 30px;
+        display: grid;
+        grid-template-columns: 1fr 8fr;
+        font-size: 14px;
+        margin: 5px 40px;
+    }
+    .emailcontent-input {
+        display: grid;
+        grid-template-columns: 1fr;
+        font-size: 14px;
+        margin: 5px 40px;
+        height: 50px;
+    }
+    tr {
+        height: 45px;
+    }
+        </style>
+
+    <title>CodeStuff</title>
+    </head>
+       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">   
+    <body style="background-color: rgb(250, 250, 250)" onload="start()">
+        
+          <%if ( user.User==0 )
+		{%><%include partial/header %> <%
+	}
+	
+	else{%><%include partial/userheader %><%
+	}%>
+      
+<br>
+        
+        <div id="main" class="main">
+        <span class="tabtext userdisp" style="float:left;font-size: 16px"><b>User List</b></span>
+        <select class="tabtext querytab" name="roletab" required style="width: 180px" id="rol">
+            <option value="all">All</option>
+            <option value="admin">Admins</option>
+            <option value="user">Users</option>
+            <option value="community builder">Community Builders</option>
+        </select>
+
+        <select class="tabtext querytab" name="statustab" required style="width: 130px" id="stat">
+            <option value="All">All</option>
+            <option value="Pending">Pending</option>
+            <option value="Confirmed">Confirmed</option>
+        </select>
+        <span class="tabtext userdisp" id="refreshbut" style="float:right;cursor: pointer; font-size: 16px"><i
+                class='fas fa-sync-alt' style='font-size:14px;color:white'></i> Refresh</span>
+
+        <table id="example" class="usertable display cell-border" style="width: 100%">
+            <thead>
+                <tr>
+                
+                    <th>Email</th>
+                    <th>Phone</th>
+                    <th>City</th>
+                    <th>Status</th>
+                    <th>Role</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+
+            </tbody>
+        </table>
+
+        </div>
+        
+        <div id="myModal" class="modal" style="width:100%;float:center">
+
+  <!-- Modal content -->
+    <span class="close">&times;</span>
+  <div class="modal-content" id="modal-content" style="width:950px;float:center">
+  </div>
+
+</div>
+        </body>
+    
+
+    
+     <script>
+         
+         
+         function start()
+         {
+            var    btn=document.createElement("button");
+                     btn.setAttribute("id","btn");
+                        btn.innerHTML="CodeStuff";
+                     document.getElementById("user").appendChild(btn);
+         }
+         
+         var curruser=[];
+	  var currentuser;
+		var table="1";
+		var lateststatus="0";
+		var latestrole="0";
+		var searchvalue="";
+         var UserData;
+         var actionbutton;
+         
+         
+         var modal = document.getElementById("myModal");
+var span = document.getElementsByClassName("close")[0];
+         
+         span.onclick = function() {
+  modal.style.display = "none";
+}
+         window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+         
+         
+         getData(lateststatus,latestrole,searchvalue);
+		function getData(setstatus,setrole,searchvalue1){
+			console.log(setstatus,setrole,searchvalue1);
+			$(document).ready(function() {
+          table	=  $('#example').DataTable({
+			  "searching":true,
+			 
+              "processing" : true,
+              "serverSide" : true,
+			  "searching":true,
+			  order: [[0, "asc"]],
+			  "search":{
+				  "value":searchvalue1,
+				  "regex":true
+			  },
+			   "destroy":true,
+			  "initComplete": function(settings, json) {
+            $('#example_filter input').unbind();
+            $('#example_filter input').bind('keyup', function(e) {
+				console.log(e)
+
+					var value1=this.value;
+					console.log(searchvalue)
+					table.search( value1 ).draw();
+                
+            }); 
+        },
+            "ajax" : {
+              "url" : "/getuserlist",
+              "type" : "POST",
+              "data" : function(d){ //find
+                d.querystatus=setstatus;
+                d.queryrole=setrole;
+              },
+				"dataSrc": "data"
+				
+            },
+            "columns" : [
+            {
+              "data" : "Email",
+				"searchable":'true'
+            },
+            {
+              "data" : "Phone",
+              "orderable" : 'false' //sort
+            },
+            {
+              "data" : "City",
+				"searchable":'true'
+            },
+            {
+              "data" : "Status",
+				"searchable":'true'
+            },
+            {
+              "data" : "Role",
+				"searchable":'true'
+            },
+            {
+          "data":null
+            }
+          ],
+
+                      columnDefs: [
+
+             {
+                 targets:-1, // Start with the last
+                 orderable : 'false',
+                 render: function ( data, type, row, meta ) {
+                         
+                                   
+							 var r = row.Role;
+                    if (r === "Superadmin") {
+                        return '<center><span class="actionbut emailbut" data-toggle="modal" data-target="#email-user-modal" id="emailbut"><i class="fas fa-envelope"></i></span></center>';
+                    } 
+							else {
+                        var visible = row.Flag;
+                        if (!visible) {
+                            return '<center><span class="actionbut emailbut" data-toggle="modal" data-target="#email-user-modal" id="emailbut"><i class="fas fa-envelope"></i></span><span class="actionbut editbut" data-toggle="modal" data-target="#edit-userdetails-modal" id="editbut"><i class="fas fa-edit"></i></span><span class="actionbut deactivatebut" data-toggle="modal" data-target="#deactivate-user-modal" id="deactivatebut"><i class="fa fa-times-circle"></i></span></center>';
+                        } else {
+                            return '<center><span class="actionbut emailbut" data-toggle="modal" data-target="#email-user-modal" id="emailbut"><i class="fas fa-envelope"></i></span><span class="actionbut editbut" data-toggle="modal" data-target="#edit-userdetails-modal" id="editbut"><i class="fas fa-edit"></i></span><span class="actionbut activatebut" data-toggle="modal" data-target="#activate-user-modal" id="activatebut"><i class="fa fa-check-circle"></i></span></center>'
+                        }
+                    }
+
+                        
+
+//                     return data;
+                 }
+             }
+
+         ],
+				            "contentType": "application/json",
+
+		  
+		  
+		  });
+              } 
+							 
+							 );
+    }
+         
+         var status1=document.getElementById("stat");
+		var role=document.getElementById("rol");
+         var refreshbut = document.getElementById("refreshbut");
+		status1.onclick=drawtable;
+		role.onclick=drawtable;
+        refreshbut.onclick=drawtable;
+		function drawtable(){
+            
+            if (role.selectedIndex == "0")
+            latestrole = "0";
+        else if (role.selectedIndex == "1")
+            latestrole = "Admin";
+        else if (role.selectedIndex == "2")
+            latestrole = "User";
+        else
+            latestrole = "Community Builder";
+			
+		if (status1.selectedIndex == "0")
+            lateststatus = "0";
+        else if (status1.selectedIndex == "1")
+            lateststatus = "Pending";
+        else
+            lateststatus = "Confirmed";
+			if(table!="1"){
+				console.log("a");
+				console.log(lateststatus,latestrole);
+				getData(lateststatus,latestrole,searchvalue);
+
+			
+		}
+				  }
+         
+           $(document).on("click", "#emailbut", function () {
+    
+        UserData = $(this).parent().parent().parent()[0].children;
+        console.log(UserData[1].innerHTML);
+           
+                 modal.style.display = "block";
+               
+              document.getElementById("modal-content").innerHTML="";
+                               
+                              // console.log(UserData[0].innerHTML);
+                                  var head=document.createElement("h1");
+                               
+                               head.innerHTML="SEND REMINDER MAIL";
+            
+                           
+                               
+                                document.getElementById("modal-content").appendChild(head);
+                               var inp1=document.createElement("input");
+                               var label=document.createElement("strong");
+                               var label2=document.createElement("strong");
+                               var label3=document.createElement("strong");
+                               
+                               label.innerHTML="TO:"
+                            
+                               inp1.setAttribute("id","inp1");
+                               inp1.setAttribute("value",UserData[0].innerHTML);
+                               inp1.setAttribute("readonly","readonly");
+                            
+                                document.getElementById("modal-content").appendChild(label);
+                               
+                               
+                                  document.getElementById("modal-content").appendChild(inp1);
+                               
+                            
+                               
+                                label2.innerHTML="SUBJECT:"
+                               var inp2=document.createElement("input");
+                              // inp2.setAttribute("type","text");
+                                inp2.setAttribute("id","inp2");
+                               
+                                document.getElementById("modal-content").appendChild(label2);
+                                  document.getElementById("modal-content").appendChild(inp2);
+                             
+                               
+                               
+                                label3.innerHTML="BODY:";
+                               
+                               var div=document.createElement("div");
+                               div.setAttribute("id","div");
+                              // div.setAttribute("width","1000px");
+                       
+                               var inp3=document.createElement("input");
+                            //   inp3.setAttribute("type","text");
+                               inp3.setAttribute("id","inp3");
+                                inp3.setAttribute("class","inp3");
+                               //inp3.setAttribute("width","1000px");
+                               
+                            document.getElementById("modal-content").appendChild(label3);
+                               div.appendChild(inp3);
+                                  document.getElementById("modal-content").appendChild(div);
+                               
+                               var btn=document.createElement("button");
+                               btn.setAttribute("id","send");
+                               btn.innerHTML="SEND";
+                               
+                               
+                               
+                               
+                               var toolbarOptions = [
+  ['bold', 'italic', 'underline', 'strike'],        // toggled buttons
+  ['blockquote', 'code-block'],
+  [{ 'header': 1 }, { 'header': 2 }],               // custom button values
+  [{ 'list': 'ordered'}, { 'list': 'bullet' }],
+  [{ 'script': 'sub'}, { 'script': 'super' }],      // superscript/subscript
+  [{ 'indent': '-1'}, { 'indent': '+1' }],          // outdent/indent
+  [{ 'direction': 'rtl' }],                         // text direction
+  [{ 'size': ['small', false, 'large', 'huge'] }],  // custom dropdown
+  [{ 'header': [1, 2, 3, 4, 5, 6, false] }],
+  [{ 'color': [] }, { 'background': [] }],          // dropdown with defaults from theme
+  [{ 'font': [] }],
+  [{ 'align': [] }],
+  ['clean']                                         // remove formatting button
+];
+                               
+                               var quill = new Quill('#div', {
+    theme: 'snow',placeholder:'write',
+                                   modules: {
+    toolbar: toolbarOptions
+     
+    
+  }
+  });
+                              
+                            
+                               
+                               
+                               
+                            //   document.getElementById("modal-content").appendChild(form);
+                               document.getElementById("modal-content").appendChild(btn);
+                    
+                               
+                               
+                  btn.onclick=function(){
+                      
+                      //UserData=$(this).parent();
+                                // var xhttp;
+                               
+                                           xhttp.open("POST",'/mail',true);
+                     xhttp.setRequestHeader("content-type","application/json;charset=UTF-8");  
+                                var obj=new Object();
+                    
+                   obj.sendTo=document.getElementById("inp1").value;
+                    obj.subject=document.getElementById("inp2").value;
+                    
+                   obj.matter=document.getElementById("div").children[0].innerHTML;
+                      console.log("click");
+                  xhttp.send(JSON.stringify(obj));
+                     xhttp.onreadystatechange=function()
+            {
+                 if (this.readyState == 4 && this.status == 200) {
+                    if(this.responseText==("Mailed")){
+                       console.log("Mailed");
+                     alert("successful");
+                       window.location.href=('/userlists');
+                       // sendreq();
+                    }
+                     else
+                         alert("error");
+            }
+            }
+               
+           }});
+        
+         
+     $(document).on("click", "#editbut", function () {
+        UserData = $(this).parent().parent().parent()[0].children;
+             document.getElementById("modal-content").innerHTML="UPDATE";
+           modal.style.display = "block";
+          var    inp1=document.createElement("input");
+                inp1.setAttribute("id","inp1");
+                            inp1.setAttribute("value",UserData[0].innerHTML);
+               inp1.setAttribute("readonly","readonly");
+        // inp1.innerHTML=UserData[0].innerHTML;
+                            
+               
+          document.getElementById("modal-content").appendChild(inp1);
+
+                 var    inp2=document.createElement("input");
+                inp2.setAttribute("id","inp2");
+                        
+                         
+                               inp2.setAttribute("placeholder",UserData[1].innerHTML);
+             document.getElementById("modal-content").appendChild(inp2);
+                 var    inp3=document.createElement("input");
+                inp3.setAttribute("id","inp3");
+                                   inp3.setAttribute("placeholder",UserData[2].innerHTML);
+            document.getElementById("modal-content").appendChild(inp3);
+                var    inp4=document.createElement("input");
+                inp4.setAttribute("id","inp4");           
+                     inp4.setAttribute("placeholder",UserData[3].innerHTML);
+         document.getElementById("modal-content").appendChild(inp4);
+                 var    inp5=document.createElement("input");
+                inp5.setAttribute("id","inp5");           
+                     inp5.setAttribute("placeholder",UserData[4].innerHTML);
+           document.getElementById("modal-content").appendChild(inp5);
+                var btn1=document.createElement("button");
+                btn1.setAttribute("id","success");
+                btn1.innerHTML="UPDATE";
+                document.getElementById("modal-content").appendChild(btn1);
+         btn1.onclick=function(){
+                   xhttp.open("POST",'/updateuser');
+                     xhttp.setRequestHeader("content-type","application/json;charset=UTF-8");
+                    var obj=new Object();
+                    obj.Email=UserData[0].innerHTML;
+                
+        
+             
+                    obj.Phno=document.getElementById("inp2").value;
+                    obj.city=document.getElementById("inp3").value;
+                    obj.status=document.getElementById("inp4").value;
+                    obj.role=document.getElementById("inp5").value;
+                   // obj.Email=document.getElementById("inp1").value;
+                    
+             if(obj.Phno=="")
+                 {
+                     obj.Phno=UserData[1].innerHTML;
+                 }
+                     
+             if(obj.city=="")
+                 {
+                     obj.city=UserData[2].innerHTML;
+                 }
+              if(obj.status=="")
+                 {
+                     obj.status=UserData[3].innerHTML;
+                 }
+              if(obj.role=="")
+                 {
+                     obj.role=UserData[4].innerHTML;
+                 }
+                   console.log(obj);
+                   // xhttp.send();
+  xhttp.send(JSON.stringify(obj));
+                     xhttp.onreadystatechange=function()
+            {
+                 if (this.readyState == 4 && this.status == 200) {
+                    if(this.responseText=="UPDATED"){
+                       alert("UPDATED");
+                        window.location.href=('/userlists');
+                    
+                    }
+                     else
+                         alert("Email already registered");
+            }
+            };
+                      // location.replace("userlists.html");
+                }
+                
+            }
+            
+             
+                
+        
+    );
+
+         $(document).on("click", "#deactivatebut", function () {
+        //console.log("Deactivate button clicked");
+        UserData = $(this).parent().parent().parent()[0].children;
+               modal.style.display = "block";
+         document.getElementById("modal-content").innerHTML="";
+                                var h2=document.createElement("h2");
+                              
+                                   h2.innerHTML='Do you want to Deactivate user?';
+                var btnsuccess=document.createElement("button");
+                                btnsuccess.setAttribute("id","btnsuccess");
+                btnsuccess.setAttribute("class","msg4");
+                             
+               btnsuccess.innerHTML='Yes';
+              
+              var btnfail=document.createElement("button");
+                                btnfail.setAttribute("id","btnfail");
+                                btnfail.setAttribute("class","msg3");
+                                btnfail.innerHTML='No';
+                               console.log( document.getElementById("modal-content").innerHTML);                                document.getElementById("modal-content").appendChild(h2);
+                                document.getElementById("modal-content").appendChild(btnsuccess);
+                               document.getElementById("modal-content").innerHTML+="<br>";
+                                document.getElementById("modal-content").appendChild(btnfail);
+                                document.getElementById("btnsuccess").onclick=function(){
+                                    var obj=new Object();
+                                    obj.Email=UserData[0].innerHTML;
+                                    
+                                     xhttp.open("POST",'/disableuser');
+                                       
+                     xhttp.setRequestHeader("content-type","application/json");
+                                    xhttp.send(JSON.stringify(obj));
+                                     xhttp.onreadystatechange=function()
+            {
+                 if (this.readyState == 4 && this.status == 200) {
+                    if(this.responseText=="UPDATED"){
+                     window.location.href=('/userlists');
+                    
+                       
+                    }
+                     else
+                         alert("Error");
+            }
+            };
+
+      
+    }
+       document.getElementById("btnfail").onclick=function(){
+                                    window.location.href=('/userlists');};
+          }   
+    );
+
+   
+          $(document).on("click", "#activatebut", function () {
+        //console.log("Deactivate button clicked");
+        UserData = $(this).parent().parent().parent()[0].children;
+        actionbutton = $(this).parent();
+                modal.style.display = "block";
+               document.getElementById("modal-content").innerHTML="";
+                                var h2=document.createElement("h2");
+                              
+                                   h2.innerHTML='Do you want to activate user?';
+                var btnsuccess=document.createElement("button");
+                                btnsuccess.setAttribute("id","btnsuccess");
+               btnsuccess.setAttribute("class","msg4");
+                             
+               btnsuccess.innerHTML='Yes';
+              
+              var btnfail=document.createElement("button");
+                                btnfail.setAttribute("id","btnfail");
+                                btnfail.setAttribute("class","msg3");
+                                btnfail.innerHTML='No';
+                               console.log( document.getElementById("modal-content").innerHTML);                                document.getElementById("modal-content").appendChild(h2);
+                                document.getElementById("modal-content").appendChild(btnsuccess);
+                               document.getElementById("modal-content").innerHTML+="<br>";
+                                document.getElementById("modal-content").appendChild(btnfail);
+                                document.getElementById("btnsuccess").onclick=function(){
+                                    var obj=new Object();
+                                    obj.Email=UserData[0].innerHTML;
+                                    
+                                     xhttp.open("POST",'/enableuser');
+                                       
+                     xhttp.setRequestHeader("content-type","application/json");
+                                    xhttp.send(JSON.stringify(obj));
+                                     xhttp.onreadystatechange=function()
+            {
+                 if (this.readyState == 4 && this.status == 200) {
+                    if(this.responseText=="UPDATED"){
+                     window.location.href=('/userlists');
+                    
+                       
+                    }
+                     else
+                         alert("Error");
+            }
+            };
+
+      
+    }
+          document.getElementById("btnfail").onclick=function(){
+                                    window.location.href=('/userlists');};
+          }
+                         )
+
+                   
+             
+           
+      
+      
+</script>
+    
+</html>

@@ -1,0 +1,637 @@
+<html>
+   <meta charset="UTF-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1,shrink-to-fit=yes">
+		<meta http-equiv="X-UA-Compatible" content="ie=edge">
+<!--
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+               <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+-->
+    <head>
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+       <style>
+		 .actionbut {
+        padding: 5px 8px 5px 8px;
+        cursor: pointer;
+        margin: 5px;
+        font-size: 14px;
+        color: white;
+        display: inline-block;
+    }
+		     .cpic {
+        background: rgb(255, 255, 255) !important;
+        height: 50px;
+        width: 50px;
+        border: 3px solid #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    }
+    .listing-deactive {
+        border-width: 2px;
+        border-style: solid;
+        border-color: red;
+    }
+    .listing-active {
+        border-width: 2px;
+        border-style: solid;
+        border-color: green;
+    }
+ .editmodal-div {
+        height: 30px;
+        display: grid;
+        grid-template-columns: 1fr 4fr;
+        font-size: 14px;
+    }
+    .editmodal-label {
+        text-align: right;
+        margin: 10px;
+    }
+    .editmodal-select {
+        height: 30px;
+        width: 100%;
+        border-radius: 5px;
+    }
+    .editmodal-input {
+        width: 100%;
+        height: 25px;
+        border-radius: 5px;
+        border-width: 1px;
+        background-color: white;
+        padding-left: 5px;
+    }
+    .modal-button {
+        background-color: white;
+        cursor: pointer;
+        width: 65px;
+        height: 35px;
+        display: inline-block;
+        padding: 6px 12px 6px 12px;
+        border-style: solid;
+        border-width: 1px;
+        border-radius: 3px;
+        text-align: center;
+    }
+    .modal-button:hover {
+        background-color: rgb(224, 224, 224);
+    }
+    
+    .emailmodal-div {
+        height: 30px;
+        display: grid;
+        grid-template-columns: 1fr 8fr;
+        font-size: 14px;
+        margin: 5px 40px;
+    }
+  
+           #body1,#div
+           {
+               height:100px;
+               width:900px;
+           }
+    #inp1,#inp2
+           {
+        width:300px;
+        float:center;
+    }
+#body
+{
+    height:500px;
+}
+#success
+{
+    width:100px;
+    height:30px;
+    float:center;
+    align-self:center;
+}
+    
+           #body1,#div
+           {
+               height:100px;
+               width:900px;
+           }
+    #inp1,#inp2
+           {
+        width:300px;
+        float:center;
+    }
+#body
+{
+    height:500px;
+
+}
+#success
+{
+    width:100px;
+    height:30px;
+    float:center;
+    align-self:center;
+}
+           /* The Modal (background) */
+.modal {
+ display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+
+
+ /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+    justify-content:center;
+    align-items:center;
+    align-self:center;
+    align-content:center;
+    float:center;
+    padding:150px;
+}
+
+/* Modal Content */
+.modal-content {
+    justify-content:center;
+    align-items:center;
+align-content:center;
+    float:center;
+    padding:20px; 
+    background-color: #fefefe;
+}
+
+/* The Close Button */
+.close {
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.main
+{
+       width:80%;
+              box-shadow: 0 0 5px;
+        display: flex;
+        margin-top: 15px;
+         justify-content: center;
+       align-content: center;
+    padding:10px;
+     height:20px;
+                height: 85vh;
+}
+     .sub
+{
+       width:1200px;
+       border-color: black;
+       height:20px;
+        display: flex;
+        margin-top: 15px;
+         justify-content: center;
+       align-content: center;
+    padding:10px;
+}      
+#btn
+ {
+   background-color: darkblue;
+   color:white;
+   border-color: darkblue;
+   width:150px;
+   height:40px;
+ }
+
+.sidenav {
+  height: 100%;
+  width: 0;
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  background-color: #111;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding-top: 60px;
+}
+
+.sidenav a {
+  text-decoration: none;
+  font-size: 25px;
+  color: #818181;
+  transition: 0.3s;
+}
+
+.sidenav a:hover {
+  color: #f1f1f1;
+}
+
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+
+@media screen and (max-height: 450px) {
+  .sidenav {padding-top: 15px;}
+  .sidenav a {font-size: 18px;}
+}
+@media only screen and (max-width: 1024px){
+    header{
+        font-size: 18px;
+    }
+    .main{
+        width: 80%;
+        box-shadow: 0px 0px 0px;
+    }
+
+               #head{
+        width: 100%;
+    }
+               .content{
+                        width:100%;
+                       }
+    footer h5{
+        font-size: 14px;
+    }
+}
+ #head
+{
+    position:sticky;
+    font-weight: bold;
+    background-color: darkblue;
+    color: white;
+    box-shadow: 0 0 10px;
+    width:100%;
+    justify-content:center;
+    align-items:center;
+}
+
+           #status
+           {
+               width:100px;
+               background-color:darkblue;
+               color:white;
+               height:20px;
+               float:right;
+           }
+            #role
+           {
+               width:100px;
+               background-color:darkblue;
+               color:white;
+               height:20px;
+               float:right;
+           }
+.s1
+{
+ background-color:darkblue;
+    color:white;
+    height:30px;
+    width:60px;
+    float:right;
+}
+.select1
+{
+ width:100%;
+   height:30px;
+    display: flex;
+   margin-top: 5px;
+   justify-content: left;
+   align-content: left;
+    padding:10px;
+}
+        </style>
+        <title>CodeStuff</title>
+    </head> 
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>     
+       <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+    <!-- <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script> -->
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js">
+    </script>
+    <body style="background-color: rgb(250, 250, 250)">
+       <% include partial/header %>
+  <br>
+    <center>
+     <div class="select1">
+       <select name="role" id="rol" class="s1">
+         <option value="All">All</option>
+          <option value="Direct">Direct</option>
+           <option value="Permission">Permission</option>      
+             
+			
+       </select>
+     
+   </div>
+        </center>
+        <br>
+
+  <div style="margin : 10px;" class="table-responsive-md">
+
+   <table id="example" class="table table-striped table-bordered " style="width:100%">
+    <thead>
+      <tr>
+      <th>Name</th>
+      <th>Rule</th>
+      <th>Location</th>
+      <th>Owner</th>
+      <th>Date</th>
+      <th>Actions</th>
+      <th>Pic</th>
+<!--      <th>Community Pic</th>-->
+      </tr>
+    </thead>
+    <tbody id="example1"></tbody>
+ </table>
+
+    
+      
+           <div id="myModal" class="modal" style="width:100%;float:center">
+
+  <!-- Modal content -->
+    <span class="close">&times;</span>
+  <div class="modal-content" id="modal-content" style="width:950px;float:center">
+  </div>
+
+</div>
+   
+   </div>
+  
+    </body>
+    
+    <script>
+        
+        
+        var modal = document.getElementById("myModal");
+         var span = document.getElementsByClassName("close")[0];
+        
+        var    btn=document.createElement("button");
+                     btn.setAttribute("id","btn");
+                        btn.innerHTML="CodeStuff";
+                     document.getElementById("user").appendChild(btn);
+        
+        span.onclick = function() {
+  modal.style.display = "none";
+}
+         window.onclick = function(event) {
+  if (event.target == modal) {
+    modal.style.display = "none";
+  }
+}
+        var curruser=[];
+	  var currentuser;
+		var table="1";
+		var latestrole="0";
+		var searchvalue="";
+        
+		getData(latestrole,searchvalue);
+		function getData(setrole,searchvalue1){
+			$(document).ready(function() {
+          table	=  $('#example').DataTable({
+			  "searching":true,
+			 
+              "processing" : true,
+              "serverSide" : true,
+			  "searching":true,
+			  order: [[0, "asc"]],
+			  "search":{
+				  "value":searchvalue1,
+				  "regex":true
+			  },
+			   "destroy":true,
+			  "initComplete": function(settings, json) {
+            $('#example_filter input').unbind();
+            $('#example_filter input').bind('keyup', function(e) {
+				console.log(e)
+
+					var value1=this.value;
+					console.log(searchvalue)
+					table.search( value1 ).draw();
+                
+            }); 
+        },
+            "ajax" : {
+              "url" : "/cdata",
+              "type" : "POST",
+              "data" : function(d){ //find
+                d.querypermission=setrole;
+              },
+				"dataSrc": "data"
+				
+            },
+            "columns" : [
+            {
+              "data" : "cName",
+				"searchable":'true'
+            },
+            {
+              "data" : "cRule",
+				"searchable":'true'
+            },
+            {
+              "data" : "cLocation",
+				"searchable":'true'
+            },
+            {
+              "data" : "cOwner",
+				"searchable":'true'
+            },
+            {
+              "data" : "cDate",
+            },
+            {
+          "data":null
+            },{
+				"data":"final.path"
+			}
+          ],
+
+                      columnDefs: [
+
+             {
+                 targets:-2, 
+                 orderable : 'false',
+                 render: function ( data, type, row, meta ) {
+                         return '<center><span class="actionbut editbut" data-toggle="modal" data-target="#edit-commdetails-modal" id="editbut" style="background-color: rgb(47, 47, 94);color: #fff"><i class="fas fa-edit"></i></span><span class="actionbut" id="infobut" data-toggle="modal" data-target="#info-commdetails-modal" style="background-color: rgb(47, 47, 94);color: #fff"><i class="fa fa-info"></i></span></center>'
+                                 
+                 }
+             },{
+				 targets:-1,// Start with the last
+				 orderable:'false',
+				 "render": function (data, type, row, meta) {
+					 console.log(row);
+					 if(row.final){
+                    var path = row.final.path;
+				 	path=path.slice(7,path.length);
+						 				  path="../"+path;
+                    if (row.Status=="Deactive"){
+                        return "<center><img src='" + path +
+                            "' class='cpic listing-deactive' id='"+row._id+"'></center>";
+			 }
+                    else
+                        return "<center><img src='" + path +
+                            "' class='cpic listing-active' id='"+row._id+"'></center>";;
+                }
+					 else{
+
+						 if (row.Status=="Deactive"){
+                        return "<center><img src='../community.jpg'  class='cpic listing-deactive' id='"+row._id+"'></center>";;
+			 }
+                    else
+                        return "<center><img src='../community.jpg' class='cpic listing-active' id='"+row._id+"'></center>";
+					 }
+				 }
+			 }
+
+         ],
+			           rowId :"_id",
+				            "contentType": "application/json",
+		  });
+		
+         } 
+							 
+							 );
+    }
+		var role=document.getElementById("rol");
+		role.onclick=drawtable;
+		function drawtable(){
+			
+			
+        if (role.selectedIndex == "0")
+            latestrole = "0";
+        else if (role.selectedIndex == "1")
+            latestrole = "Direct";
+        else
+            latestrole = "Permission";
+		
+			if(table!="1"){
+			
+				getData(latestrole,searchvalue);
+
+			
+		}
+				  }
+	 $(document).on("click", "#editbut", function () {
+	 var id=table.row($(this).parent().parent().parent()).id();
+        var UserData = $(this).parent().parent().parent()[0].children;  
+         document.getElementById("modal-content").innerHTML="UPDATE";
+                                  modal.style.display="block";
+                             var    inp1=document.createElement("input");
+                inp1.setAttribute("id","inp1");
+                            inp1.setAttribute("placeholder",UserData[0].innerHTML);
+                             document.getElementById("modal-content").appendChild(inp1);
+                document.getElementById("modal-content").innerHTML+="<br>";
+                 var    inp2=document.createElement("input");
+                inp2.setAttribute("id","inp2");
+                            inp2.setAttribute("placeholder","Deactive");
+                             document.getElementById("modal-content").appendChild(inp2);
+                                document.getElementById("modal-content").innerHTML+="<br>";
+                 
+                var btn1=document.createElement("button");
+                btn1.setAttribute("id","success");
+                btn1.innerHTML="UPDATE";
+                document.getElementById("modal-content").appendChild(btn1);
+                btn1.onclick=function(){
+                   xhttp.open("PUT",'/cupdate',true);
+                     xhttp.setRequestHeader("content-type","application/json;charset=UTF-8");
+                    var obj=new Object();
+             obj.id=id;
+                  obj.cName=document.getElementById("inp1").value;
+                    obj.Status=document.getElementById("inp2").value;
+                   if(obj.cName=="")
+                       obj.cName=UserData[0].innerHTML;
+                    
+                     if(obj.Status=="")
+                       obj.Status="Active";
+                   // xhttp.send();
+  xhttp.send(JSON.stringify(obj));
+                     xhttp.onreadystatechange=function()
+            {
+                 if (this.readyState == 4 && this.status == 200) {
+                    if(this.responseText=="UPDATED"){
+                       alert("UPDATED");
+                        window.location.href=('/communitylists')
+                    
+                    }
+                     else
+                         alert("Error");
+            }
+            };
+                      // location.replace("userlists.html");
+                }
+                
+            }
+            
+             
+       
+
+    );
+		$(document).on("click", "#infobut", function () {
+			 var id=table.row($(this).parent().parent().parent()).id();
+        var UserData = $(this).parent().parent().parent()[0].children;
+            
+             xhttp.open("POST",'/desc');
+                xhttp.setRequestHeader("content-type","application/json;charset=UTF-8");
+                var obj=new Object();
+                
+                obj.id=id;
+           
+                 xhttp.send(JSON.stringify(obj));
+                var comm=[];
+                
+                xhttp.onreadystatechange=function()
+            {
+                
+                 if (this.readyState == 4 && this.status == 200) {
+                     comm=JSON.parse(this.responseText);
+                 
+                 
+                 
+      //console.log(comm[i].cDesc);
+               
+               //  console.log(event.target.parentElement.parentElement.firstChild.innerHTML);
+                             document.getElementById("modal-content").innerHTML="Community Description";
+                                  modal.style.display="block";
+                             var    inp1=document.createElement("input");
+                inp1.setAttribute("id","inp1");
+                         inp1.setAttribute("value",comm.cDesc);
+                     inp1.setAttribute("readonly","readonly");
+                             document.getElementById("modal-content").appendChild(inp1);
+                document.getElementById("modal-content").innerHTML+="<br>";
+                
+                 
+                var btn1=document.createElement("button");
+                btn1.setAttribute("id","close");
+                btn1.innerHTML="Close";
+                document.getElementById("modal-content").appendChild(btn1);
+                 
+                btn1.onclick=function(){
+                     window.location.href=("/communitylists");
+                }
+                 }
+                
+                }
+                
+                
+                  
+            }
+        
+                      //
+                
+            
+       
+				
+);
+
+	
+    </script>
+
+</html>
+
+
