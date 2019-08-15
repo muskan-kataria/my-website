@@ -67,7 +67,7 @@ cLocation: {type:String,default:'NotAdded'},
     request:[String],
       final: { contentType: String,
              image:Buffer,
-             path:String }
+             path:{type:String,default:'community.jpg'} }
     //category : [{ 'abd': Number , }]
   })
 var community = mongoose.model('communities',communitySchema);
@@ -1246,16 +1246,19 @@ app.post('/create',function(req,res){
             
                       
                   })  
-           community.find({})
+           community.find({cName:req.body.Name})
 
       .then(data => {
-               
-            
-               newuser.save();
+            if(data.length==0){
+              newuser.save();
                   res.send("Created");
+            }
+               else
+                   res.send("not");
              
         })
         .catch(err => {
+              
           console.error(err)
           res.send(error)
         })
