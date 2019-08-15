@@ -203,6 +203,20 @@ var output = (day<10 ? '0' : '') + day+ '-' +
         else
             {
         
+             
+                 
+                
+                
+                 
+                                     
+            
+                                     
+                
+                
+                
+                
+                
+                
         var xhttp=new XMLHttpRequest();
         
        xhttp.open("POST",'/create');
@@ -216,13 +230,24 @@ var output = (day<10 ? '0' : '') + day+ '-' +
                         
                    
                     alert("created successfully");
-                        //location.replace('communities.html');
+                       
                     
             
                     }
                      
+               else if(this.responseText=="not")
+                      { 
+                          alert("community with this name already created");
+                          window.location.href="/createcommunity";
+                      }
+                     
+                     
+                     
                      else
+                     {
                          alert("error");
+                     }
+                                     
                  
                                      
       // var mxhttp
@@ -235,11 +260,13 @@ var output = (day<10 ? '0' : '') + day+ '-' +
                                            console.log("click");
                  if (this.readyState == 4 && this.status == 200) {
                     if(this.responseText=="updated"){   
-                        alert("member created");
+                        //alert("member created");
                     
                        // location.replace('communities.html');
                            
     }
+                 }
+                                     
      
                      
                      
@@ -294,9 +321,15 @@ var output = (day<10 ? '0' : '') + day+ '-' +
     
                                      }
                  }
-                                     }
+            }
     }
-                                     }
+    
+                                     
+    
+                                     
+    
+                                     
+            
     
     
     

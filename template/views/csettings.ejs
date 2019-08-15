@@ -367,17 +367,19 @@ document.getElementById("edit").onclick=function(event){
                  if (this.readyState == 4 && this.status == 200) {
                       // console.log("req for photo");
                      curusser=((this).responseText);
-                     curusser=curusser.slice(7,curusser.length);
-                    console.log(curusser);
-                     if(curusser)
-        { var img=document.getElementById("img").setAttribute("src","../"+curusser);
-          var img=document.getElementById("img1").setAttribute("src","../"+curusser);
+                 
+                    
+                     if(curusser!="community.jpg")
+        { 
+                curusser=curusser.slice(7,curusser.length);
+            var img=document.getElementById("img").setAttribute("src","../"+curusser);
+          //var img=document.getElementById("img1").setAttribute("src","../"+curusser);
         }
                      
                           
              else{
                 var img=document.getElementById("img").setAttribute("src","../community.jpg");
-                      var img=document.getElementById("img1").setAttribute("src","../community.jpg");
+                     // var img=document.getElementById("img1").setAttribute("src","../community.jpg");
              }
                  }
         

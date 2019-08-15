@@ -466,7 +466,7 @@ align-content:center;
 				 orderable:'false',
 				 "render": function (data, type, row, meta) {
 					 console.log(row);
-					 if(row.final){
+					 if(row.final.path!='community.jpg'){
                     var path = row.final.path;
 				 	path=path.slice(7,path.length);
 						 				  path="../"+path;

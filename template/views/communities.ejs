@@ -13,7 +13,10 @@
 <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
      <style>
-         
+         img{
+             height:100px;
+             width:100px;
+         }
          .topnav input[type=text] {
   float: right;
   padding: 6px;
@@ -304,6 +307,8 @@ axhttp.send();
                      
                      for(var    i=0;i<comm.length;i++)
                          {
+                             
+ 
                              flag=0;
                           var mem=[];
                              mem=comm[i].member;
@@ -331,15 +336,48 @@ axhttp.send();
                                var btn=document.createElement("button");
                                        var btn2=document.createElement("button");
                                      
-                             img.setAttribute("src","community.jpg");
+                            // img.setAttribute("src","community.jpg");
                                      
                                      
                                      
-                                     
+                                                                    
+     var mxhttp=new XMLHttpRequest();
+         var curusser;
+    
+    var obj=new Object();
+    obj.name=comm[i].cName;
+                               
+        
+    if(comm[i].final.path)
+        { curusser=comm[i].final.path;
+         
+            if(curusser=='community.jpg'){
+               img.setAttribute("src","../community.jpg");
+            }
+         else
+             {
+                             curusser=curusser.slice(7,curusser.length);
+                    console.log(curusser);
+         img.setAttribute("src","../"+curusser);
+             }
+        
+          //var img=document.getElementById("img1").setAttribute("src","../"+curusser);
+        }
+                     
+                     
+                          
+             else{
+             
+                 img.setAttribute("src","../community.jpg");
+                     // var img=document.getElementById("img1").setAttribute("src","../community.jpg");
+             }
+                 
+        
+         
  
           
                                      
-                                      img.setAttribute("id","cimage");
+                                    //  img.setAttribute("id","cimage");
                              pic.appendChild(img);
                              
                                      
@@ -585,9 +623,10 @@ axhttp.send();
                 var com=[];
                 
             cobj.name=userdata[1].innerHTML;
-               // console.log(cobj.name);
+             console.log("id"+comm._id);
                 
  localStorage.setItem("data",cobj.name);
+              //  sessionStorage.setItem("data1",comm[i]._id);
 
     
         
@@ -687,8 +726,42 @@ axhttp.send();
                              var r=document.createElement("tr" )
                              var pic=document.createElement("td" );
                              var img=document.createElement("img");
-                             img.setAttribute("src","community.jpg");
-                                img.setAttribute("id","cimage");
+                            // img.setAttribute("src","community.jpg");
+                            //    img.setAttribute("id","cimage");
+                              
+                                 
+     var mxhttp=new XMLHttpRequest();
+         var curusser;
+    
+    var obj=new Object();
+    obj.name=comm[i].cName;
+        
+        console.log("image");
+           
+                     if(comm[i].final.path)
+        { curusser=comm[i].final.path;
+        if(curusser=='community.jpg')
+        {
+               img.setAttribute("src","community.jpg");
+        }
+         else
+             {
+                     curusser=curusser.slice(7,curusser.length);
+                    console.log(curusser);
+         img.setAttribute("src","../"+curusser);
+             }
+          //var img=document.getElementById("img1").setAttribute("src","../"+curusser);
+        }
+                     
+                          
+             else{
+             
+                 img.setAttribute("src","community.jpg");
+                     // var img=document.getElementById("img1").setAttribute("src","../community.jpg");
+             }
+                 
+        
+         
                              pic.appendChild(img);
                              
                              
@@ -805,7 +878,7 @@ axhttp.send();
             cobj.name=userdata[1].innerHTML;
                 
  localStorage.setItem("data",cobj.name);
-
+ //sessionStorage.setItem("data1",comm[i]._id);
     
         
          window.location.href=('/csettings');      
