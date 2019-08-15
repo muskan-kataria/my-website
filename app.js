@@ -221,7 +221,7 @@ app.get('/adminportal',(req,res)=>{
         }
     else
         {
-            res.render('index');
+             res.render('broken');
         }
 })
 
@@ -235,7 +235,7 @@ app.get('/userportal',(req,res)=>{
         }
     else
         {
-            res.render('index');
+           res.render('broken');
         }
 })
 app.get('/edituser',(req,res)=>{
@@ -253,7 +253,7 @@ app.get('/edituser',(req,res)=>{
         }
     else
         {
-            res.render('index');
+              res.render('broken');
         }
 })
 
@@ -308,7 +308,7 @@ app.post('/uploadphoto', upload.single('myImage'),(req, res) => {
 
 
 app.get('/editprofile',(req,res)=>{
-    if(access==1)
+    if(req.session.isLogin)
         {
     res.render('editprofile',{
         user:req.session
@@ -316,7 +316,7 @@ app.get('/editprofile',(req,res)=>{
         }
     else
         {
-            res.send(error);
+            res.render('broken');
         }
 })
 
@@ -351,14 +351,14 @@ app.put('/edit',function(req,res){
 
 
 app.get('/adduser',(req,res)=>{
-    if(access==1)
+    if(req.session.isLogin)
         {
     res.render('adduser',{user:req.session
     })
         }
     else
         {
-            res.send(error);
+            res.render('broken');
         }
 })
 
@@ -470,7 +470,7 @@ app.get('/userlists',(req,res)=>{
         }
     else
         {
-            res.send(error);
+            res.render('broken');
         }
 })
 
@@ -936,18 +936,32 @@ app.get('/communitylists',(req,res)=>{
 })
 
 app.get('/requests',(req,res)=>{
+    if(req.session.isLogin)
  res.render('requests',{user:req.session});
+    else
+        res.render('broken');
 })
 app.get('/communities',(req,res)=>{
+    if(req.session.isLogin)
+        {
  res.render('communities',{user:req.session});
+        }
+    else
+        res.render('broken');
 })
 
 app.get('/csettings',(req,res)=>{
+       if(req.session.isLogin)
  res.render('csettings',{user:req.session});
+        else
+        res.render('broken');
 })
 
 app.get('/createcommunity',(req,res)=>{
+    if(req.session.isLogin)
  res.render('createcommunity',{user:req.session});
+    else
+        res.render('broken');
 })
 
 
