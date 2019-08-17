@@ -11,6 +11,11 @@
     
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
 
+        <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 <style>
     
     #image1{
@@ -25,7 +30,7 @@
            .head
            {
                background-color: lightgray;
-               text-align: center;
+               text-align:center;
                height:30px;
                font-size: 25px;
                width:1665px;
@@ -89,7 +94,23 @@
         float:center;
         align-self: center;
     }
-        
+    
+    .borderless tr td {
+    border: none !important;
+    padding: 0px !important;
+}
+    
+    button{
+        height:50px;
+        width:50px;
+    }
+    #update1{
+        background-color:green;
+    }
+    #cancel{
+                background-color:red;
+    }
+    
         
         </style>
     
@@ -113,7 +134,7 @@
              <!--   PHOTO-->
  <form action="/uploadphoto" method="POST" enctype="multipart/form-data">
       <div class="file-field input-field">
-        <div class="btn grey">
+        <div class="btn grey ">
           <span>Image</span>
           <input name="myImage" type="file" >
         </div>
@@ -121,7 +142,7 @@
           <input class="file-path validate" type="text">
         </div>
       </div>
-      <button type="submit" class="btn">Upload Photo</button>
+      <button type="submit" height="50px" width="50px" class="btn" >Upload Photo</button>
     </form>
             
 <center>
@@ -131,9 +152,9 @@
             
 
         
-             <div>
-                 <h2>  Basic Info</h2>
-                 <table width="100%">
+             <div class="table-responsive">
+                 <h1>  Basic Info</h1>
+                 <table width="100%" class="table borderless">
        <tr>
                      
                      <td>
@@ -182,25 +203,38 @@
              
         
             
-            <div border:"4">
+            <div class="table-responsive">
                 
-                <div>
-            <h2>    Contact Info
-                    </h2>                
+        
+            <h1>    Contact Info
+                    </h1>                
             
-             
-             <div class="textbox">
-                  <div class="head"><p>Phone</p></div>
-                <div class="content"><input type="text" id="phone"></div>
-                </div>
-             
+              <table width="100%" class="table borderless">
+       <tr>
+           <td>
                <div class="textbox">
-                  <div class="head"><p>City</p></div>
-                <div class="content"><input type="text" id="city"></div>
-                </div>
-             
+                <div class="head" ><p>Phone</p></div>
+                <div class="content"><input type="text" id="phone" size="35"></div>
+               </div>
+           </td>
+           
+                     </tr>
+                  
+                   <tr>
+           <td>
+               <div class="textbox">
+                <div class="head" ><p>City</p></div>
+                <div class="content"><input type="text" id="city" size="35"></div>
+               </div>
+           </td>
+           
+                     </tr>
+                     
+                </table>
              
              </div>
+                
+                <br>
              
         <button id="update1">update</button>
             <button id="cancel">Cancel</button>

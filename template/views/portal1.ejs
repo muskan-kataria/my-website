@@ -11,10 +11,11 @@
      justify-content: center;
     align-items: center;
 }
+         
            .main
            {
                width:80%;
-               border-color: black;
+               border-color: white;
                height:20px;
                 height: 85vh;
                box-shadow: 0 0 15px;
@@ -72,10 +73,19 @@ margin-top: 15px;
                border-color: darkblue;
                width:100px;
            }
+.borderless tr td {
+    border: none !important;
+    padding: 0px !important;
+}
            
 
         </style>
         <title>CodeStuff</title>
+        
+          <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     </head>
        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">   
     <body onload="sendreq()">
@@ -87,22 +97,23 @@ margin-top: 15px;
 	else{%><%include partial/userheader %><%
 	}%>
         
-        
+        <center>
         <div class="main">
-           <table id="boxes">
-           <tr>
+            <div class="table-responsive">
+           <table id="boxes" class="table borderless">
+           <tr class="borderless">
            <td colspan="2" id="image">
               <center>
  <img  height="100px" width="100px" id="img"></center>
            </td>
                </tr>
                
-               <tr>
+               <tr class="borderless">
                <td id="editbtn"><button align="right">Edit</button></td>
                
                
                </tr>
-           <tr>
+           <tr class="borderless">
            <td> <div class="textbox">
                 <div class="head"><p>Email</p></div>
                 <div class="content"><p id="email"></p></div>
@@ -111,7 +122,7 @@ margin-top: 15px;
                 <div class="head"><p>Gender</p></div>
                 <div class="content"><p id="gender"></p></div>
                </div></td></tr>
-                <tr>
+                <tr class="borderless">
            <td> <div class="textbox">
                 <div class="head"><p>Name</p></div>
                 <div class="content"><p id="name"></p></div>
@@ -120,7 +131,7 @@ margin-top: 15px;
                 <div class="head"><p>City</p></div>
                 <div class="content"><p id="city"></p></div>
                </div></td></tr>
-                <tr>
+                <tr class="borderless">
            <td> <div class="textbox">
                 <div class="head"><p>D.O.B.</p></div>
                 <div class="content"><p id="dob"></p></div>
@@ -131,7 +142,8 @@ margin-top: 15px;
                </div></td></tr>
             </table>
         </div>
-    
+        </div>
+        </center>
     </body>
     <script>
        
