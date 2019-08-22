@@ -1,0 +1,549 @@
+<html>
+
+<head>
+     <script type="text/javascript" charset="utf8" src="https://code.jquery.com/jquery-3.3.1.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.css"/>
+         
+        <script type="text/javascript" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+    
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css" integrity="sha384-oS3vJWv+0UjzBfQzYUhtDYW+Pj2yciDJxpsK1OYPAYjqT085Qq/1cq5FLXAZQ7Ay" crossorigin="anonymous">
+
+
+
+<link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+<script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
+     <style>
+         
+            .panel {
+        margin: 30px;
+        padding: 20px;
+             border-color:black;
+             box-shadow:(0,0,15px);
+    }
+    .panel-heading {
+        background-color: aqua;
+        height:50px;
+    }
+         img{
+             height:100px;
+             width:100px;
+         }
+         .topnav input[type=text] {
+  float: right;
+  padding: 6px;
+  border: none;
+  margin-top: 8px;
+  margin-right: 16px;
+  font-size: 17px;
+}
+         hr{
+             width: 200px;
+             border-style: strong;
+         }
+
+         
+         .name{
+             background-color: gainsboro; /* Green */
+  border: none;
+  color: black;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px; 
+             
+             
+         }
+         
+         
+         
+         #cimage{
+             height:60px;
+         }
+         #search{
+             height:40px;
+             width:50px
+         }
+          #comm{
+             height:40px;
+             width:50px
+         }
+         #h{
+             background-color: aqua;
+             height:50px;
+                 width:100%;
+         }
+         .req{
+              background-color: blue;
+             color:white;
+         }
+         .join{
+             float:right;
+             background-color: blue;
+             color:white;
+            
+         }
+          .ask to join{
+             float:right;
+             background-color: blue;
+              color:white;
+            
+         }
+          #settings{
+             float:right;
+              
+              background-color: greenyellow;
+              height:30px;
+              width:70px;
+              color:black;
+    
+         }
+        
+
+#head
+{
+    font-weight: bold;
+    background-color: darkblue;
+    color: white;
+    box-shadow: 0 0 10px;
+    width:100%;
+     justify-content: center;
+    align-items: center;
+}
+           .main
+           {
+               width:80%;
+               border-color: black;
+               height:20px;
+                height: 85vh;
+               box-shadow: 0 0 15px;
+               justify-content: center;
+               align-content: center;
+                   align-items: center;
+    display: flex;
+margin-top: 15px;
+}
+        .textbox
+           {
+              margin :10px;  
+           }
+           .head
+           {
+               background-color: lightgray;
+               width:100%;
+               text-align: center;
+               height:30px;
+               font-size: 25px;
+               width:500px;
+           }
+           .content
+           {
+               background-color: white;
+               width:100%;
+               text-align: center;
+               height:30px;
+               font-size: 25px;
+               width:500px;
+           }
+           #boxes
+           {
+               width:1000px;
+           }
+           #image
+           {
+               width:30px;
+               height:30px;
+           }
+           img
+           {
+               border-color: black;
+           }
+          #btn
+           {
+               background-color: darkblue;
+               color:white;
+               border-color: darkblue;
+           }
+           .button
+           {
+               background-color: darkblue;
+               color:white;
+               border-color: darkblue;
+               width:100px;
+           }
+
+        </style>
+        <title>CodeStuff</title>
+    </head>
+       <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">   
+    
+
+    <body>
+    
+     <%if ( user.User==0 )
+		{%><%include partial/header %> <%
+	}
+	
+	else{%><%include partial/userheader %><%
+	}%>
+       
+    
+    <div id="h" class="topnav">
+        
+        
+        <button id="comm" onclick="mcomm()"><i class="fas fa-users"></i>
+</button>
+        <button id="search" onclick="search()"><i class="fas fa-search"></i>
+</button>
+        
+   
+    
+<!--
+               
+      
+         <input style="width:200px" id="searchbox" class="form-control searchcommunity" type="text" placeholder="Search Community...">
+        
+-->
+        </div>
+    
+
+    
+        <div id="mydiv">
+            
+            <div class="panel panel-default allSidesSoft community-panel-main-div">
+            <div class="panel-heading community-panel-heading">
+                <div class="cummunityhead"><span style="margin-right: 60%">MY COMMUNITIES</span>
+                        <button id="create1" onclick="abc()" style="float:right">Create</button>
+                </div>
+             </div>
+        
+        <table id="myc" cellspacing="20px" width="500px">
+            
+            
+            <tbody id="tbody1">
+            
+            
+            </tbody>
+            
+            
+            </table>
+        
+            </div>
+    
+        
+        
+        
+        
+        </div>
+    
+    
+    
+    </body>
+
+<script>
+ 
+ 
+    
+    
+        
+       var Email;
+    var curruser;
+    var exhttp=new XMLHttpRequest();
+    
+    function    sendreq(){
+        exhttp.open("GET",'/currentSession');
+        exhttp.send();
+         exhttp.onreadystatechange=function()
+            {
+                 if (this.readyState == 4 && this.status == 200) {
+                     curruser=JSON.parse(this.responseText);
+                     
+                     Email=curruser.Email;
+                     
+                 }
+             
+         }
+         
+    }
+                     
+ 
+ function abc(){
+    
+        console.log('click');
+      
+        
+         window.location.href=('/createcommunity');             
+                                         
+   
+    }
+    
+  function search(){
+ 
+      window.location.href=('/searchcomm');
+      
+      
+  }
+    
+    
+    
+    
+  function mcomm(){
+      
+     window.location.href=('/mycommunities');  
+      
+  }
+      
+      
+      
+      var mxhttp=new XMLHttpRequest();
+         var curruser;
+      var Email;
+      var request=[];
+        
+        
+         mxhttp.open("GET",'/currentSession');  
+    mxhttp.setRequestHeader("content-type","application/json");
+mxhttp.send();
+         mxhttp.onreadystatechange=function()
+            {
+        
+        
+                 if (this.readyState == 4 && this.status == 200) {
+                     curruser=JSON.parse(this.responseText);
+                     console.log("email");
+                     console.log(curruser.Email);
+                     
+                     Email=curruser.Email;
+                 }
+             
+         }
+                 
+     
+      
+   
+      
+   var axhttp=new XMLHttpRequest();
+         var comm=[];
+        
+        
+         axhttp.open("GET",'/mycomm');  
+    axhttp.setRequestHeader("content-type","application/json");
+axhttp.send();
+         axhttp.onreadystatechange=function()
+            {
+        
+        
+                 if (this.readyState == 4 && this.status == 200) {
+                     comm=JSON.parse(this.responseText);
+                 console.log(comm);
+   
+                     console.log("members");
+                     
+                     for(var    i=0;i<comm.length;i++)
+                         {
+                          console.log(i);
+            var mem=[];
+                             mem=comm[i].member;
+                             request=comm[i].request;
+                            
+                             
+                             var oemail=comm[i].cOEmail;
+                             //console.log("owner");
+                            // console.log(oemail);
+                            
+              for(var j=0;j<mem.length;j++)
+                  {
+                      
+                      if(Email==mem[j])
+                          {
+                             var r=document.createElement("tr" )
+                             var pic=document.createElement("td" );
+                             var img=document.createElement("img");
+                            // img.setAttribute("src","community.jpg");
+                            //    img.setAttribute("id","cimage");
+                              
+                                 
+     var mxhttp=new XMLHttpRequest();
+         var curusser;
+    
+    var obj=new Object();
+    obj.name=comm[i].cName;
+        
+        console.log("image");
+           
+                     if(comm[i].final.path)
+        { curusser=comm[i].final.path;
+        if(curusser=='community.jpg')
+        {
+               img.setAttribute("src","community.jpg");
+        }
+         else
+             {
+                     curusser=curusser.slice(7,curusser.length);
+                    console.log(curusser);
+         img.setAttribute("src","../"+curusser);
+             }
+          //var img=document.getElementById("img1").setAttribute("src","../"+curusser);
+        }
+                     
+                          
+             else{
+             
+                 img.setAttribute("src","community.jpg");
+                     // var img=document.getElementById("img1").setAttribute("src","../community.jpg");
+             }
+                 
+        
+         
+                             pic.appendChild(img);
+                             
+                             
+                             var name=document.createElement("td" );
+                             name.innerHTML=comm[i].cName;
+                             
+                              r.appendChild(pic);
+                            r.appendChild(name);
+                              
+                              if(Email==oemail)
+                                  {
+                                    
+                                   var scol=document.createElement("td");
+                                      var reqc=document.createElement("td");
+                                      var settings=document.createElement("button");
+                                      var req=document.createElement("button");
+                                      //var im=document.createElement("img");
+                                      settings.setAttribute("id","settings"+i);
+                                      req.setAttribute("id","req"+i);
+                                      req.setAttribute("class","req");
+                                      req.innerHTML="Requests";
+                                      //im.setAttribute("src","settings.png");
+                                      settings.innerHTML="Settings";
+                                      //im.setAttribute("height","20px");
+                                      reqc.appendChild(req);
+                                      scol.appendChild(settings);
+                                      
+                                    //settings.appendChild(im);
+                                      
+                                      var rcol=document.createElement("td");
+                                      rcol.innerHTML="Requests("+request.length+")";
+                                      
+                                      r.appendChild(rcol);
+                                      r.appendChild(reqc);
+                                      
+                                     r.appendChild(scol);
+                                  }
+                              
+                              else{
+                                  var mcol=document.createElement("td");
+                                      mcol.innerHTML="members("+mem.length+")";
+                                  r.appendChild(mcol);
+                              }
+               
+                              var hr=document.createElement("hr");
+                               document.getElementById("tbody1").appendChild(r); 
+                             document.getElementById("tbody1").appendChild(hr);   
+                    
+                         }
+                      
+                  }
+                             
+                             
+                         }
+                     
+                     
+                 }
+             
+         
+        
+  }
+         
+         
+     setInterval(function() {
+    
+          for(var i=0;i<comm.length;i++){
+         
+                    if(document.getElementById("req"+i)){
+                
+            document.getElementById("req"+i).onclick=function(event){
+             
+             var userdata=$(this).parent().parent()[0].children;
+
+      var cobj=new Object();
+                var crequest=[];
+                var com=[];
+                
+            cobj.name=userdata[1].innerHTML;
+                
+ localStorage.setItem("data",cobj.name);
+
+    
+        
+        
+        
+         window.location.href=('/requests');     
+  
+                                     
+          }
+                                     
+                                     
+                                     
+            }
+            
+                    }
+              
+          }
+      ,1000);
+      
+            
+     setInterval(function() {
+    
+          for(var i=0;i<comm.length;i++){
+         
+                    if(document.getElementById("settings"+i)){
+                
+            document.getElementById("settings"+i).onclick=function(event){
+             
+             var userdata=$(this).parent().parent()[0].children;
+
+      var cobj=new Object();
+                
+                
+            cobj.name=userdata[1].innerHTML;
+                
+ localStorage.setItem("data",cobj.name);
+ //sessionStorage.setItem("data1",comm[i]._id);
+    
+        
+         window.location.href=('/csettings');      
+  
+                                     
+          }
+                                     
+                                     
+                                     
+            }
+            
+                    }
+              
+          }
+      ,1000);
+           
+    
+         
+
+         
+               
+             
+      
+                     var    btn=document.createElement("button");
+                     btn.setAttribute("id","btn");
+                        btn.innerHTML="CodeStuff";
+                     document.getElementById("user").appendChild(btn);
+    
+    
+    
+    </script>
+
+</html>
