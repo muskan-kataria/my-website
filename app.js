@@ -913,7 +913,31 @@ app.post('/updatecommunity',function(req,res){
 app.get('/cinfo',(req,res)=>{
     if(access==1)
         {
-    res.render('cinfo',{user:req.session
+    res.render('cinfo',{user:req.session,
+                        
+    })
+        }
+    else
+        {
+            res.render('broken');
+        }
+})
+app.get('/searchcomm',(req,res)=>{
+    if(access==1)
+        {
+    res.render('searchcomm',{user:req.session
+    })
+        }
+    else
+        {
+            res.render('broken');
+        }
+})
+
+app.get('/mycommunities',(req,res)=>{
+    if(access==1)
+        {
+    res.render('mycommunities',{user:req.session
     })
         }
     else
@@ -982,6 +1006,36 @@ app.get('/mycomm',function(req,res){
   })
 
 
+
+app.post('/searchcommwithval', function (req, res) {
+	 
+  community.find({
+      
+      "cOEmail": {
+        $ne: req.session.Email
+      },
+      "member": {
+        $ne: req.session.Email
+      },
+      "request": {
+        $ne: req.session.ID
+      },
+	  "cName":{
+		  $regex:req.body.value,
+		  $options:'i'
+	  }
+    }).sort({
+      "cName": 1
+    }).skip(req.body.start).limit(req.body.end)
+    .then(data => {
+      console.log(data);
+      res.send(data);
+    })
+    .catch(err => {
+      console.error(err)
+      res.send(err);
+    })
+});
 
   app.post('/myrequests',function(req,res){
       //console.log(req.body);
@@ -1188,7 +1242,8 @@ app.post('/crequest',function(req,res){
 
     community.findOneAndUpdate(
     {
-        cName:req.body.Name
+        cName:req.body.Name,
+    
     },
     {
        
